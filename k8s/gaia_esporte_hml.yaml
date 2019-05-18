@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gaia-esporte-hml
+spec:
+  ports:
+  - port: 443
+    targetPort: 3000
+  selector:
+    app: gaia-esporte-hml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gaia-esporte-hml
+spec:
+  selector:
+    matchLabels:
+      app: gaia-esporte-hml
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: gaia-esporte-hml
+    spec:
+      containers:
+      - env:
+        - name: API_KEY_CLIMA
+          value: {{API_KEY_CLIMA}}
+        - name: API_KEY_LOCAL
+          value: {{API_KEY_LOCAL}}
+        - name: DB
+          value: {{DB}}
+        - name: ENVIRONMENT
+          value: homolog
+        - name: PASS_DB
+          value: {{PASS_DB}}
+        - name: USER_DB
+          value: {{USER_DB}}
+        image: caleberios/gaia-esporte:homolog
+        imagePullPolicy: Always
+        name: gaia-esporte-hml
+        ports:
+        - containerPort: 3000

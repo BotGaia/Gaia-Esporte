@@ -15,7 +15,7 @@ services:
       - 3000:3000
     command: npm run dev
     depends_on:
-      - mongo
+      - mongoesporte
   
   mongoesporte:
     image: aashreys/mongo-auth:latest
