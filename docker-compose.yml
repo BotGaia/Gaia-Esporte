@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  gaiaesporte:
+    build: .
+    restart: always
+    environment:
+      - API_KEY_LOCAL=${API_KEY_LOCAL}
+      - API_KEY_CLIMA=${API_KEY_CLIMA}
+      - ENVIRONMENT=dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: npm run dev
+    depends_on:
+      - mongo
+  
+  mongoesporte:
+    image: aashreys/mongo-auth:latest
+    ports: 
+      - 27017:27017

@@ -1,0 +1,38 @@
+{
+  "name": "gaia-esporte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=text mocha src/test --exit",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BotGaia/Gaia-Esporte.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BotGaia/Gaia-Esporte/issues"
+  },
+  "homepage": "https://github.com/BotGaia/Gaia-Esporte#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "express": "^4.16.4",
+    "mocha": "^6.1.4",
+    "mongoose": "^5.4.20"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "nyc": "^14.1.0"
+  }
+}
