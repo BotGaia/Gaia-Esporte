@@ -29,7 +29,6 @@ module.exports = {
       language: 'pt-BR',
     };
     return new Promise((resolve) => {
-      
       local.findMe().then((isFound) => {
         if (isFound) {
           resolve(local);
