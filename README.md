@@ -23,11 +23,11 @@ Após instalar o docker rode o projeto como desenvolvimento da seguinte maneira:
 
 Para rodar os testes, rode esse comando:
 
-``` $ sudo docker-compose run gaianotifica npm run test ```
+``` $ sudo docker-compose run gaiaesporte npm run test ```
 
 Para rodar a folha de estilo, utilize este comando:
 
-``` $ sudo docker-compose run gaianotifica npm run lint ```
+``` $ sudo docker-compose run gaiaesporte npm run lint ```
 
 ### Endpoints
 
@@ -35,4 +35,6 @@ Aqui se encontra todos os endpoints desse serviço. Todos os endpoints se encont
 
 |Requisição|Endpoint|Parâmetro:Tipo|Descrição|
 |:--------:|:------:|:------------:|:-------:|
-||||
+|GET|/|-|Retorna todas as endpoints do microserviço.|
+|GET|/local|address: String|Recebe o nome de um local e retorna as coordenadas do local informado.|
+|GET|/listLocales|address: String|Recebe o nome de um local e retorna uma lista com os possíveis locais informado.|
