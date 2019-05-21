@@ -23,13 +23,13 @@ module.exports = {
 
   getCoords: (name) => {
     const local = new Local(name);
-
     const params = {
       q: name,
       key: process.env.API_KEY_LOCAL,
       language: 'pt-BR',
     };
     return new Promise((resolve) => {
+      
       local.findMe().then((isFound) => {
         if (isFound) {
           resolve(local);
