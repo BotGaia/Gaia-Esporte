@@ -1,47 +1,47 @@
-const https = require('https');
+const axios = require('axios');
 const Local = require('../models/LocalModel');
 const treat = require('../utils/localTreatmentUtil');
 
-const key = process.env.API_KEY_LOCAL;
-
 module.exports = {
   getLocales: (name) => {
-    let data = '';
-    let results;
-    return new Promise((resolve) => {
-      https.get(`https://api.opencagedata.com/geocode/v1/json?q=${name}&key=${key}&language=pt-BR`, (resp) => {
-        resp.on('data', (chunk) => {
-          data += chunk;
-        });
+    const params = {
+      q: name,
+      key: process.env.API_KEY_LOCAL,
+      language: 'pt-BR',
+    };
 
-        resp.on('end', () => {
-          results = treat.bodyToResultsArray(JSON.parse(data), name);
+    return new Promise((resolve) => {
+      axios.get('https://api.opencagedata.com/geocode/v1/json?', { params })
+        .then((response) => {
+          const results = treat.bodyToResultsArray(response.data, name);
           resolve(results);
+        }).catch((err) => {
+          resolve(err.response.data);
         });
-      });
     });
   },
 
   getCoords: (name) => {
     const local = new Local(name);
-    let data = '';
-    let body;
+
+    const params = {
+      q: name,
+      key: process.env.API_KEY_LOCAL,
+      language: 'pt-BR',
+    };
     return new Promise((resolve) => {
       local.findMe().then((isFound) => {
         if (isFound) {
           resolve(local);
         } else {
-          https.get(`https://api.opencagedata.com/geocode/v1/json?q=${name}&key=${key}`, (resp) => {
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              body = JSON.parse(data);
-              treat.bodyToLocal(body, local);
+          axios.get('https://api.opencagedata.com/geocode/v1/json', { params })
+            .then((response) => {
+              treat.bodyToLocal(response.data, local);
               local.saveLocal();
               resolve(local);
+            }).catch((err) => {
+              resolve(err);
             });
-          });
         }
       });
     });
