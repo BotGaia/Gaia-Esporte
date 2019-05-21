@@ -2,7 +2,7 @@ const https = require('https');
 const Local = require('../models/LocalModel');
 const treat = require('../utils/localTreatmentUtil');
 
-const key = process.env.API_KEY;
+const key = process.env.API_KEY_LOCAL;
 
 module.exports = {
   getLocales: (name) => {
