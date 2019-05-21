@@ -36,5 +36,5 @@ Aqui se encontra todos os endpoints desse serviço. Todos os endpoints se encont
 |Requisição|Endpoint|Parâmetro:Tipo|Descrição|
 |:--------:|:------:|:------------:|:-------:|
 |GET|/|-|Retorna todas as endpoints do microserviço.|
-|GET|/local|address: String|Recebe o nome de um local e retorna as coordenadas do local informado.|
-|GET|/listLocales|address: String|Recebe o nome de um local e retorna uma lista com os possíveis locais informado.|
+|GET|/local|local: String|Recebe o nome de um local e retorna as coordenadas do local informado.|
+|GET|/listLocales|local: String|Recebe o nome de um local e retorna uma lista com os possíveis locais informado.|

@@ -1,6 +1,5 @@
 const math = require('./coordsMathUtil');
 
-
 function searchParameter(parameter, parameterCode, userInput) {
   if (parameter) {
     if (new RegExp((parameter).toLowerCase()).test(userInput)) {
@@ -122,8 +121,8 @@ function selectResults(allResults, resultsArray, userInput) {
     }
   });
 }
-module.exports = {
 
+module.exports = {
   bodyToLocal: (body, local) => {
     try {
       local.setLongitude(body.results[0].geometry.lng);
