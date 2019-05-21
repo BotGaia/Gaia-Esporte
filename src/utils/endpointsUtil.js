@@ -6,7 +6,7 @@ module.exports = {
         endpoint: '/local',
         parameters: [
           {
-            name: 'address',
+            name: 'local',
             type: 'string',
           },
         ],
@@ -17,7 +17,7 @@ module.exports = {
         endpoint: '/listLocales',
         parameters: [
           {
-            name: 'address',
+            name: 'local',
             type: 'string',
           },
         ],

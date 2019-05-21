@@ -126,11 +126,9 @@ module.exports = {
 
   bodyToLocal: (body, local) => {
     try {
-      local.setName(treatPostCode(body.results[0].formatted));
       local.setLongitude(body.results[0].geometry.lng);
       local.setLatitude(body.results[0].geometry.lat);
     } catch (error) {
-      local.setName('error');
       local.setLongitude('error');
       local.setLatitude('error');
     }

@@ -31,7 +31,7 @@ describe('Coords', () => {
       lat = value.getLatitude();
       should.equal(lat, '-24.4842187');
       done();
-    });
+    }).catch(() => {});
   }).timeout(5000);
 
   it('Should get Longitude', (done) => {
@@ -39,6 +39,6 @@ describe('Coords', () => {
       lon = value.getLongitude();
       should.equal(lon, '-51.8148872');
       done();
-    });
+    }).catch(() => {});
   }).timeout(5000);
 });
