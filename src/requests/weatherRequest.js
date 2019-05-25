@@ -1,5 +1,4 @@
 const axios = require('axios');
-const requestCoords = require('./coordsRequest');
 
 module.exports = {
   getWeather: (local) => {

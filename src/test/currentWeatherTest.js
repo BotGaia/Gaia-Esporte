@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 describe('GET WEATHER', () => {
   it('should get a weather object', (done) => {
-  	chai.request(app).get('/climate?place=brasilia').end((err, res) => {
+    chai.request(app).get('/climate?place=brasilia').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Object');
       done();

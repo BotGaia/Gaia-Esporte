@@ -7,12 +7,12 @@ module.exports = {
   compare(weather) {
     return new Promise((resolve) => {
       this.getAllSports().then((array) => {
-        resolve(this.divideArrays(array, weather));
+        resolve(this.divideRecommendationArrays(array, weather));
       });
     });
   },
 
-  divideArrays(array, weather) {
+  divideRecommendationArrays(array, weather) {
     let count = 0;
     const objectOfSports = { favorable: [], reservation: [], alert: [] };
     for (let i = 0; i < array.length; i += 1) {

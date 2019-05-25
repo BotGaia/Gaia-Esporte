@@ -25,9 +25,9 @@ module.exports = {
     } else if (process.env.ENVIRONMENT === 'homolog') {
       mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.225.250.253/${process.env.DB}`,
         { useNewUrlParser: true }).then(() => {
-          saveSports.saveAllSports().then(() => {
-            resolve();
-          });
+        saveSports.saveAllSports().then(() => {
+          resolve();
+        });
       }).catch();
     }
   }),

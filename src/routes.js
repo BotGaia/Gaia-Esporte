@@ -4,6 +4,8 @@ const endpoints = require('./utils/endpointsUtil');
 const requestWeather = require('../src/requests/weatherRequest');
 const Weather = require('../src/models/WeatherModel');
 const comparation = require('./utils/compareSportWithWeatherUtil');
+const hourlyForecast = require('./utils/hourlyForecastUtil');
+const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
 
 const router = express.Router();
 
@@ -19,6 +21,55 @@ router.get('/local', (req, res) => {
     });
   }).catch((err) => {
     res.send(err);
+  });
+});
+
+router.get('/climateForecast', (req, res) => {
+  requestWeather.getLocal(req.query.place).then((coordsJson) => {
+    requestWeather.getForecast(coordsJson).then((forecastJson) => {
+      if (forecastJson.cod === '200') {
+        const weatherArray = [];
+
+        forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
+        res.json(
+          hourlyForecast
+            .getHourlyForecast(
+              weatherArray,
+              new Date(req.query.date),
+            ),
+        );
+      } else {
+        res.json(forecastJson.list);
+      }
+    });
+  });
+});
+
+router.post('/sportForecast', (req, res) => {
+  const resultArray = [];
+  let i = 0;
+  req.body.locals.forEach((local) => {
+    requestWeather.getLocal(local).then((coordsJson) => {
+      requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
+        if (forecastJson.cod === '200') {
+          const weatherArray = [];
+
+          forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
+
+          const resultItem = await sportForecastRecommendation
+            .getForecastRecommendation(weatherArray, req.body);
+
+          resultArray.push(resultItem);
+          i += 1;
+
+          if (i === req.body.locals.length) {
+            res.json(resultArray);
+          }
+        } else {
+          res.json(forecastJson.list);
+        }
+      });
+    });
   });
 });
 
