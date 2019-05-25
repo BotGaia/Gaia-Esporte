@@ -6,6 +6,7 @@ const Weather = require('../src/models/WeatherModel');
 const comparation = require('./utils/compareSportWithWeatherUtil');
 const hourlyForecast = require('./utils/hourlyForecastUtil');
 const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
+const saveNotification = require('./utils/notificationSaveUtil');
 
 const router = express.Router();
 
@@ -128,6 +129,12 @@ router.get('/sports', (req, res) => {
 router.get('/allSports', (req, res) => {
   comparation.getAllSports().then((array) => {
     res.json(array);
+  });
+});
+
+router.post('/createNotification', (req, res) => {
+  saveNotification.saveNotification(req.body).then((notification) => {
+    res.send(notification.notification);
   });
 });
 

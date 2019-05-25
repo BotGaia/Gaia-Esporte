@@ -88,6 +88,19 @@ module.exports = {
         parameters: [],
         description: 'Returns all the sports in the database',
       },
+      {
+        type: 'POST',
+        endpoint: '/createNotification',
+        JSON: {
+          telegramId: 'String',
+          sport: 'String',
+          days: 'Array',
+          hour: 'Integer',
+          minutes: 'Integer',
+          locals: 'Array',
+        },
+        description: 'Saves a notification in the system',
+      },
     ];
 
     return endpoints;
