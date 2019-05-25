@@ -1,4 +1,5 @@
-const mongoose = require('mongoose'); const SportSchema = require('../schemas/sportSchema');
+const mongoose = require('mongoose');
+const SportSchema = require('../schemas/sportSchema');
 
 const SportModel = mongoose.model('SportModel', SportSchema);
 

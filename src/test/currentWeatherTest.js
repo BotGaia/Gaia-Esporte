@@ -13,44 +13,39 @@ chai.use(chaiHttp);
 
 describe('GET WEATHER', () => {
   it('should get a weather object', (done) => {
-    requestCoords.getCoords('brasilia').then((local) => {
-      requestWeather.getWeather(local).then((weatherJson) => {
-        weatherJson.should.be.a('Object');
-        weatherJson.should.have.property('cod').eql(200);
-        done();
-      });
+  	chai.request(app).get('/climate?place=brasilia').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      done();
     });
   }).timeout(5000);
 
   it('should return a 400 error', (done) => {
-    requestCoords.getCoords('RUSBÉ UUUUUUH').then((local) => {
-      requestWeather.getWeather(local).then((weatherJson) => {
-        weatherJson.should.be.a('Object');
-        weatherJson.should.have.property('cod').eql('400');
-        done();
-      });
+    chai.request(app).get('/climate?place=RUSBÉ UUUUUUH').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      res.body.should.have.property('cod').eql('400');
+      done();
     });
   }).timeout(5000);
 
   it('should return a 400 error', (done) => {
-    requestCoords.getCoords().then((local) => {
-      requestWeather.getWeather(local).then((weatherJson) => {
-        weatherJson.should.be.a('Object');
-        weatherJson.should.have.property('cod').eql('400');
-        done();
-      });
+    chai.request(app).get('/climate?place=').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      res.body.should.have.property('cod').eql('400');
+      done();
     });
   }).timeout(5000);
 
   it('should have name, sunrise and sunset', (done) => {
-    requestCoords.getCoords('brasilia').then((local) => {
-      requestWeather.getWeather(local).then((weatherJson) => {
-        weatherJson.should.be.a('Object');
-        weatherJson.should.have.property('name');
-        weatherJson.should.have.property('sunrise');
-        weatherJson.should.have.property('sunset');
-        done();
-      });
+    chai.request(app).get('/climate?place=brasilia').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      res.body.should.have.property('name');
+      res.body.should.have.property('sunrise');
+      res.body.should.have.property('sunset');
+      done();
     });
   }).timeout(5000);
 });

@@ -30,9 +30,7 @@ module.exports = {
     };
     return new Promise((resolve) => {
       local.findMe().then((isFound) => {
-        console.log(local);
         if (isFound) {
-          console.log('achei');
           resolve(local);
         } else {
           axios.get('https://api.opencagedata.com/geocode/v1/json', { params })
