@@ -15,9 +15,10 @@ services:
       - 3000:3000
     command: npm run dev
     depends_on:
-      - mongoesporte
-  
-  mongoesporte:
+      - mongo
+
+  mongo:
     image: aashreys/mongo-auth:latest
-    ports: 
+    command: mongod --port 27017
+    ports:
       - 27017:27017

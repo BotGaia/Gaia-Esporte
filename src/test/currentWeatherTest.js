@@ -33,7 +33,7 @@ describe('GET WEATHER', () => {
   }).timeout(5000);
 
   it('should return a 400 error', (done) => {
-    requestCoords.getCoords('').then((local) => {
+    requestCoords.getCoords().then((local) => {
       requestWeather.getWeather(local).then((weatherJson) => {
         weatherJson.should.be.a('Object');
         weatherJson.should.have.property('cod').eql('400');

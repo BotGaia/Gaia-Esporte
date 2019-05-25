@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 describe('GET FORECAST', () => {
   it('should get a list of weather objects', (done) => {
-    requestCoords.getCoords().then((local) => {
+    requestCoords.getCoords('brasilia').then((local) => {
       requestWeather.getForecast(local).then((forecastJson) => {
         forecastJson.should.be.a('Object');
         forecastJson.should.have.property('cod').eql('200');
@@ -22,7 +22,7 @@ describe('GET FORECAST', () => {
   }).timeout(5000);
 
   it('should return a 400 error', (done) => {
-    requestCoords.getCoords('').then((local) => {
+    requestCoords.getCoords().then((local) => {
       requestWeather.getForecast(local).then((forecastJson) => {
         forecastJson.should.be.a('Object');
         forecastJson.should.have.property('cod').eql('400');
