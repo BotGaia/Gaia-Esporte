@@ -1,5 +1,5 @@
-const Notification = require('../models/Notification');
-const timeMath = require('./timeMath');
+const Notification = require('../models/NotificationModel');
+const timeMath = require('./timeMathUtil');
 
 
 module.exports = {
