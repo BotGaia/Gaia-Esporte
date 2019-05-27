@@ -2,7 +2,6 @@ const Sport = require('../models/SportModel');
 const Interval = require('../models/IntervalModel');
 
 module.exports = {
-
   saveAllSports() {
     return new Promise(async (resolve) => {
       await this.saveSportTest();
@@ -142,35 +141,6 @@ module.exports = {
           resolve();
         }
       });
-    });
-  },
-
-  printSport(sportName) {
-    const sport = new Sport(sportName);
-    sport.findMe().then((isFound) => {
-      if (isFound) {
-        process.exit();
-      } else {
-        process.exit();
-      }
-    });
-  },
-
-  deleteSport(sportName) {
-    new Sport(sportName).findMe().then((isFound) => {
-      if (isFound) {
-        new Sport(sportName).deleteMe().then(() => {
-          new Sport(sportName).findMe().then((isFound2) => {
-            if (isFound2) {
-              process.exit();
-            } else {
-              process.exit();
-            }
-          });
-        });
-      } else {
-        process.exit();
-      }
     });
   },
 };

@@ -2,7 +2,7 @@ const treat = require('../utils/treatmentWeatherUtil');
 
 module.exports = class Weather {
   constructor(JsonData, type) {
-    this.date = treat.treatDate(JsonData.dt);
+    this.date = treat.treatDate(JsonData.dt, 'forecast');
     this.sky = treat.treatSky(JsonData.weather[0].description);
     this.temperature = treat.treatTemperature(JsonData.main.temp);
     this.pressure = treat.treatPressure(JsonData.main.pressure);
@@ -14,8 +14,8 @@ module.exports = class Weather {
 
     if (type === 'weather') {
       this.name = JsonData.name;
-      this.sunrise = treat.treatSun(JsonData.sys.sunrise);
-      this.sunset = treat.treatSun(JsonData.sys.sunset);
+      this.sunrise = treat.treatDate(JsonData.sys.sunrise, 'weather');
+      this.sunset = treat.treatDate(JsonData.sys.sunset, 'weather');
     }
   }
 };

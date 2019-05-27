@@ -32,13 +32,13 @@ describe('GET ATTRIBUTES', () => {
   }).timeout(5000);
 
   it('should get Sunrise', (done) => {
-    const hours = treatment.treatSun('1555917368');
+    const hours = treatment.treatDate('1555917368', 'weather');
     hours.should.equal('4:16:08');
     done();
   }).timeout(5000);
 
   it('should get Date time', (done) => {
-    const date = treatment.treatDate('1555917368');
+    const date = treatment.treatDate('1555917368', 'forecast');
     date.should.equal('segunda-feira 4:16:08');
     done();
   }).timeout(5000);
