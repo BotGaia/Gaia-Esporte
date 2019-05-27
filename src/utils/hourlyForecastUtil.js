@@ -15,7 +15,7 @@ module.exports = {
     const hoursAhead = getHoursAhead(date);
 
     if (hoursAhead === 'invalid') {
-      return 'invalid';
+      return 'Formato inválido! Tente da seguinte maneira: AAAA-MM-DD. Formato do horário: THH%3AMM';
     }
 
     const n = hoursAhead / 3;

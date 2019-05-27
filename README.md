@@ -38,3 +38,8 @@ Aqui se encontra todos os endpoints desse serviço. Todos os endpoints se encont
 |GET|/|-|Retorna todas as endpoints do microserviço.|
 |GET|/local|local: String|Recebe o nome de um local e retorna as coordenadas do local informado.|
 |GET|/listLocales|local: String|Recebe o nome de um local e retorna uma lista com os possíveis locais informado.|
+|GET|/forecast|place: String|Recebe o nome de um local e retorna uma lista com as previsões de 3 em 3 horas por 5 dias do local informado.|
+|GET|/climateForecast|place: String|date: String|Recebe o nome de um local, o dia e a hora e retorna a previsão mais perto do horário escolhido.|
+|Formato /climateForecast: place=brasilia&date=AAAA-MM-DDTHH%3AMM|A = ano, M = mês, D = dia, H = hora, M = minuto|
+|Exemplo da requisição do /climateForecast: place=brasilia&date=2019-05-30T03%3A30|
+

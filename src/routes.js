@@ -33,13 +33,12 @@ router.get('/climateForecast', (req, res) => {
         forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
         res.json(
           hourlyForecast
-            .getHourlyForecast(
-              weatherArray,
-              new Date(req.query.date),
+            .getHourlyForecast(weatherArray, new Date(req.query.date),
             ),
         );
+        
       } else {
-        res.json(forecastJson.list);
+        res.send("Formato inválido! Tente : place=LUGAR&date=AAAA-MM-DDTHH%3AMM");
       }
     });
   });
@@ -103,8 +102,9 @@ router.get('/forecast', (req, res) => {
         forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
 
         res.json(weatherArray);
+       
       } else {
-        res.json(forecastJson.list);
+        res.send("formato inválido!");
       }
     });
   });
