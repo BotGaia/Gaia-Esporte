@@ -97,6 +97,8 @@ module.exports = {
       case 7:
         day = 'domingo ';
         break;
+      default:
+        return ('');
     }
     switch (hours) {
       case -1:
@@ -108,6 +110,8 @@ module.exports = {
       case -3:
         hours = 21;
         break;
+      default:
+        break;
     }
     const formattedSunTime = hours + points + minutes.substr(-2) + points + seconds.substr(-2);
     const formattedDateTime = day + formattedSunTime;
@@ -115,9 +119,7 @@ module.exports = {
     if (type === 'weather') {
       return formattedSunTime.toString();
     }
-    else {
-      return formattedDateTime.toString();
-    }
 
+    return formattedDateTime.toString();
   },
 };
