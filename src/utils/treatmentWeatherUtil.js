@@ -65,14 +65,77 @@ module.exports = {
     return ('');
   },
 
-  treatSun: (sun) => {
-    const timestamp = parseFloat(sun);
+  treatDate: (time) => {
+    const timestamp = parseFloat(time);
     const date = new Date(timestamp * 1000);
-    const hours = (date.getHours()-3);
+    let hours = (date.getHours()-3);
     const zero = '0';
     const points = ':';
     const minutes = zero + date.getMinutes();
     const seconds = zero + date.getSeconds();
+    let day = date.getDay();
+
+    switch (day){
+      case 1:
+        day = 'segunda-feira ';
+        break;
+      case 2:
+        day = 'terça-feira ';
+        break;
+      case 3:
+        day = 'quarta-feira ';
+        break;
+      case 4:
+        day = 'quinta-feira ';
+        break;
+      case 5:
+        day = 'sexta-feira ';
+        break;
+      case 6:
+        day = 'sábado ';
+        break;
+      case 7:
+        day = 'domingo ';
+        break;
+    }
+
+    switch (hours){
+      case -1:
+        hours = 23;
+        break;
+      case -2:
+        hours = 22;
+        break;
+      case -3:
+        hours = 21;
+        break;
+    }
+
+    const formattedTime = day + hours + points + minutes.substr(-2) + points + seconds.substr(-2);
+    return formattedTime.toString();
+  },
+
+  treatSun: (sun) => {
+    const timestamp = parseFloat(sun);
+    const date = new Date(timestamp * 1000);
+    let hours = (date.getHours()-3);
+    const zero = '0';
+    const points = ':';
+    const minutes = zero + date.getMinutes();
+    const seconds = zero + date.getSeconds();
+
+    switch (hours){
+      case -1:
+        hours = 23;
+        break;
+      case -2:
+        hours = 22;
+        break;
+      case -3:
+        hours = 21;
+        break;
+    }
+
     const formattedTime = hours + points + minutes.substr(-2) + points + seconds.substr(-2);
     return formattedTime.toString();
   },
