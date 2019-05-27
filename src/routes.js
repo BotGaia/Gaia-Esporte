@@ -25,7 +25,7 @@ router.get('/local', (req, res) => {
 });
 
 router.get('/climateForecast', (req, res) => {
-  requestWeather.getLocal(req.query.place).then((coordsJson) => {
+  requestCoords.getCoords(req.query.place).then((coordsJson) => {
     requestWeather.getForecast(coordsJson).then((forecastJson) => {
       if (forecastJson.cod === '200') {
         const weatherArray = [];
@@ -49,7 +49,7 @@ router.post('/sportForecast', (req, res) => {
   const resultArray = [];
   let i = 0;
   req.body.locals.forEach((local) => {
-    requestWeather.getLocal(local).then((coordsJson) => {
+    requestCoords.getCoords(local).then((coordsJson) => {
       requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
         if (forecastJson.cod === '200') {
           const weatherArray = [];
