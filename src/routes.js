@@ -27,7 +27,10 @@ router.get('/local', (req, res) => {
 router.get('/climateForecast', (req, res) => {
   requestCoords.getCoords(req.query.place).then((coordsJson) => {
     requestWeather.getForecast(coordsJson).then((forecastJson) => {
-      if (forecastJson.cod === '200') {
+      const date = new Date(req.query.date);
+      if (date instanceof Date) {
+        res.json('Formato inválido! Tente da seguinte maneira: AAAA-MM-DD. Formato do horário: THH%3AMM');
+      } else if (forecastJson.cod === '200') {
         const weatherArray = [];
 
         forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));

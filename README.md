@@ -42,7 +42,7 @@ Aqui se encontra todos os endpoints desse serviço. Todos os endpoints se encont
 |GET|/forecast|place: String|Recebe o nome de um local e retorna uma lista com as previsões de 3 em 3 horas por 5 dias do local informado.|
 |GET|/sports|place: String|Recebe um local e retorna os esportes favoráveis, com ressalva e com alerta.|
 |GET|/allSports|-|Retorna todos os esportes presentes no banco de dados.|
-|GET|/sportForecast|telegramId: String, date: String, sport: String, locals: Array|Recebe um objeto de notificação e retorna a favorabilidade do esporte e um objeto de clima para cada local.|
+|POST|/sportForecast|days: Array, locals: Array, telegramId: String, sport: String, hour: Integer, minutes:Integer, date: String |Recebe um objeto de notificação e retorna a favorabilidade do esporte e um objeto de clima para cada local.|
 |GET|/climateForecast|place: String, date: String|Recebe o nome de um local, o dia e a hora e retorna a previsão mais perto do horário escolhido.|
 ||Formato /climateForecast| place=brasilia&date=AAAA-MM-DDTHH%3AMM|A = ano, M = mês, D = dia, H = hora, M = minuto|
 ||Exemplo da requisição do /climateForecast| place=brasilia&date=2019-05-30T03%3A30|place = brasilia, 30/05/2019 às 03horas e 30min

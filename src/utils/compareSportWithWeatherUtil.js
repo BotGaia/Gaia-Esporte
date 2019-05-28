@@ -46,6 +46,21 @@ module.exports = {
     });
   },
 
+  compareWeather: (sport, weather) => {
+    let recommendationLevel = 0;
+    if (this.compareHumidity(sport, weather)) {
+      recommendationLevel += 1;
+    }
+    if (this.compareTemperature(sport, weather)) {
+      recommendationLevel += 1;
+    }
+    if (this.compareWindSpeed(sport, weather)) {
+      recommendationLevel += 1;
+    }
+
+    return recommendationLevel;
+  },
+
   compareTemperature: (sport, weather) => {
     for (let i = 0; i < sport.temperature.length; i += 1) {
       if (parseFloat(weather.temperature) >= parseFloat(sport.temperature[i].lowerLimit)
