@@ -16,9 +16,9 @@ services:
     command: npm run dev
     depends_on:
       - mongo
-  
+
   mongo:
     image: aashreys/mongo-auth:latest
     command: mongod --port 27017
-    ports: 
+    ports:
       - 27017:27017

@@ -4,9 +4,9 @@ const LocalSchema = require('../schemas/localSchema');
 const LocalModel = mongoose.model('LocalModel', LocalSchema);
 
 module.exports = class Local {
-  constructor() {
+  constructor(name) {
     this.local = new LocalModel({
-      name: '',
+      name,
       latitude: '',
       longitude: '',
     });
