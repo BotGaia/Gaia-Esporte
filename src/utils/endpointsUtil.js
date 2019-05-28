@@ -66,8 +66,6 @@ module.exports = {
         JSON: {
           days: 'array',
           locals: 'array',
-          _id: 'string',
-          class: 'string',
           telegramId: 'string',
           sport: 'string',
           hour: 'integer',
@@ -75,7 +73,6 @@ module.exports = {
           hoursBefore: 'integer',
           minutesBefore: 'integer',
           date: 'string',
-          _v: 'integer',
         },
         description: 'Receives a notification object and a date and returns the favorability of the sport and a weather object for each location.',
       },
