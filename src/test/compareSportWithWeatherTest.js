@@ -11,11 +11,27 @@ const fakeWeather = { temperature: 1500, humidity: 2.0, windyspeed: 2.0 };
 const should = chai.should();
 
 describe('Compare current and favorable weather conditions', () => {
-  it('should be equal or not', () => {
-    const sport = new Sport('sportTest');
+  it('should have temperature equal or not', () => {
+    const sport = new Sport('sportTest1');
     const interval = new Interval('3000', '1000');
     sport.appendTemperatureInterval(interval);
     const tof = compare.compareTemperature(sport.getSport(), fakeWeather);
     tof.should.be.equal(true);
+  });
+
+  it('should have humidity equal or not', () => {
+    const sport = new Sport('sportTest2');
+    const interval = new Interval('3000', '1000');
+    sport.appendHumidityInterval(interval);
+    const tof = compare.compareHumidity(sport.getSport(), fakeWeather);
+    tof.should.be.equal(false);
+  });
+
+  it('should have wind speed equal or not', () => {
+    const sport = new Sport('sportTest3');
+    const interval = new Interval('3000', '1000');
+    sport.appendWindSpeedInterval(interval);
+    const tof = compare.compareWindSpeed(sport.getSport(), fakeWeather);
+    tof.should.be.equal(false);
   });
 });

@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongooseConnection = require('./db/sportMongooseConnectionDb');
+const scheduler = require('./utils/schedulerUtil');
 
 const app = express();
 
@@ -11,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 mongooseConnection.connect();
 
 require('./routes')(app);
+
+scheduler.dailySchedule();
 
 app.listen(3000);
 

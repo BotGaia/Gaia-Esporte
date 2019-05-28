@@ -22,7 +22,7 @@ module.exports = class Sport {
     this.sport.humidity.push(interval);
   }
 
-  appendwindSpeedInterval(interval) {
+  appendWindSpeedInterval(interval) {
     this.sport.windSpeed.push(interval);
   }
 
