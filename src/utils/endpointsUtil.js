@@ -101,14 +101,9 @@ module.exports = {
           days: 'Array',
           minutesBefore: 'Integer',
           hoursBefore: 'Integer',
-          hour: "Integer",
-          minutes: 'Integer',
-          sport: 'String',
-          locals: 'Array',
-          
-         
           hour: 'Integer',
           minutes: 'Integer',
+          sport: 'String',
           locals: 'Array',
         },
         description: 'Saves a notification in the system',
