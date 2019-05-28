@@ -40,7 +40,7 @@ Aqui se encontra todos os endpoints desse serviço. Todos os endpoints se encont
 |GET|/listLocales|local: String|Recebe o nome de um local e retorna uma lista com os possíveis locais informado.|
 |GET|/climate|place: String|Recebe um local e retorna as condições climáticas do mesmo.|
 |GET|/forecast|place: String|Recebe o nome de um local e retorna uma lista com as previsões de 3 em 3 horas por 5 dias do local informado.|
-|POST|/createNotification|telegramId: String, sport: String, days: Array, hours: Integer, minutes: Integer, locals: Array|Salva uma notificação no sistema.|
+|POST|/createNotification|telegramId: String, days: Array, minutesBefore: Integer, hoursBefore: Integer, hour: Integer, minutes: Integer, sport: String, locals: Array|Salva uma notificação no sistema.|
 |GET|/sports|place: String|Recebe um local e retorna os esportes favoráveis, com ressalva e com alerta.|
 |GET|/allSports|-|Retorna todos os esportes presentes no banco de dados.|
 |POST|/sportForecast|days: Array, locals: Array, telegramId: String, sport: String, hour: Integer, minutes:Integer, date: String |Recebe um objeto de notificação e retorna a favorabilidade do esporte e um objeto de clima para cada local.|
