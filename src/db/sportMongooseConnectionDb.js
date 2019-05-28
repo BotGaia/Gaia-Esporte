@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const saveSports = require('./SaveSports');
+const saveSports = require('./saveSportsDb');
 
 module.exports = {
   connect: () => new Promise((resolve) => {

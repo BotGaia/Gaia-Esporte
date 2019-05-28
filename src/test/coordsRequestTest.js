@@ -2,23 +2,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const chai = require('chai');
-const Coords = require('../requests/coordsRequest.js');
+const chaiHttp = require('chai-http');
+const app = require('../index');
 
 const should = chai.should();
+chai.use(chaiHttp);
 
 describe('List', () => {
   it('Should get Latitude', (done) => {
-    Coords.getLocales('brasilia').then((value) => {
-      const { lat } = value[0];
-      should.equal(lat, -10.3333333);
+    chai.request(app).get('/listLocales?local=brasilia').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Array');
+      res.body[0].should.have.property('lat').eql(-10.3333333);
       done();
     });
   }).timeout(5000);
 
   it('Should get Longitude', (done) => {
-    Coords.getLocales('brasilia').then((value) => {
-      const { lng } = value[0];
-      should.equal(lng, -53.2);
+    chai.request(app).get('/listLocales?local=brasilia').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Array');
+      res.body[0].should.have.property('lng').eql(-53.2);
       done();
     });
   }).timeout(5000);
@@ -26,18 +30,20 @@ describe('List', () => {
 
 describe('Coords', () => {
   it('Should get Latitude', (done) => {
-    Coords.getCoords('parana').then((value) => {
-      lat = value.getLatitude();
-      should.equal(lat, '-24.4842187');
+    chai.request(app).get('/local?local=parana').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      res.body.should.have.property('lat').eql('-24.4842187');
       done();
-    }).catch(() => {});
+    });
   }).timeout(5000);
 
   it('Should get Longitude', (done) => {
-    Coords.getCoords('parana').then((value) => {
-      lon = value.getLongitude();
-      should.equal(lon, '-51.8148872');
+    chai.request(app).get('/local?local=parana').end((err, res) => {
+      res.should.have.status(200);
+      res.body.should.be.a('Object');
+      res.body.should.have.property('lng').eql('-51.8148872');
       done();
-    }).catch(() => {});
+    });
   }).timeout(5000);
 });

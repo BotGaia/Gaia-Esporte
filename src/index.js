@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongooseConnection = require('./db/localMongooseConnectionDb');
+const mongooseConnection = require('./db/sportMongooseConnectionDb');
 const scheduler = require('./utils/schedulerUtil');
 
 const app = express();

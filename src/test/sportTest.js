@@ -5,7 +5,7 @@ const chai = require('chai');
 const Sport = require('../models/SportModel');
 const Interval = require('../models/IntervalModel');
 const compare = require('../utils/compareSportWithWeatherUtil');
-const mongooseConnection = require('../db/climaMongooseConnection');
+const mongooseConnection = require('../db/sportMongooseConnectionDb');
 
 const should = chai.should();
 

@@ -65,15 +65,61 @@ module.exports = {
     return ('');
   },
 
-  treatSun: (sun) => {
-    const timestamp = parseFloat(sun);
+  treatDate: (time, type) => {
+    const timestamp = parseFloat(time);
     const date = new Date(timestamp * 1000);
-    const hours = date.getHours();
+    let hours = (date.getHours() - 3);
     const zero = '0';
     const points = ':';
     const minutes = zero + date.getMinutes();
     const seconds = zero + date.getSeconds();
-    const formattedTime = hours + points + minutes.substr(-2) + points + seconds.substr(-2);
-    return formattedTime.toString();
+    let day = date.getDay();
+
+    switch (day) {
+      case 1:
+        day = 'segunda-feira ';
+        break;
+      case 2:
+        day = 'terça-feira ';
+        break;
+      case 3:
+        day = 'quarta-feira ';
+        break;
+      case 4:
+        day = 'quinta-feira ';
+        break;
+      case 5:
+        day = 'sexta-feira ';
+        break;
+      case 6:
+        day = 'sábado ';
+        break;
+      case 7:
+        day = 'domingo ';
+        break;
+      default:
+        return ('');
+    }
+    switch (hours) {
+      case -1:
+        hours = 23;
+        break;
+      case -2:
+        hours = 22;
+        break;
+      case -3:
+        hours = 21;
+        break;
+      default:
+        break;
+    }
+    const formattedSunTime = hours + points + minutes.substr(-2) + points + seconds.substr(-2);
+    const formattedDateTime = day + formattedSunTime;
+
+    if (type === 'weather') {
+      return formattedSunTime.toString();
+    }
+
+    return formattedDateTime.toString();
   },
 };

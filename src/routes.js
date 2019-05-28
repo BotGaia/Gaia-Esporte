@@ -26,18 +26,18 @@ router.get('/local', (req, res) => {
 });
 
 router.get('/climateForecast', (req, res) => {
-  requestWeather.getLocal(req.query.place).then((coordsJson) => {
+  requestCoords.getCoords(req.query.place).then((coordsJson) => {
     requestWeather.getForecast(coordsJson).then((forecastJson) => {
-      if (forecastJson.cod === '200') {
+      const date = new Date(req.query.date);
+      if (date instanceof Date) {
+        res.json('Formato inválido! Tente da seguinte maneira: AAAA-MM-DD. Formato do horário: THH%3AMM');
+      } else if (forecastJson.cod === '200') {
         const weatherArray = [];
 
         forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
         res.json(
           hourlyForecast
-            .getHourlyForecast(
-              weatherArray,
-              new Date(req.query.date),
-            ),
+            .getHourlyForecast(weatherArray, new Date(req.query.date)),
         );
       } else {
         res.json(forecastJson.list);
@@ -50,7 +50,7 @@ router.post('/sportForecast', (req, res) => {
   const resultArray = [];
   let i = 0;
   req.body.locals.forEach((local) => {
-    requestWeather.getLocal(local).then((coordsJson) => {
+    requestCoords.getCoords(local).then((coordsJson) => {
       requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
         if (forecastJson.cod === '200') {
           const weatherArray = [];
