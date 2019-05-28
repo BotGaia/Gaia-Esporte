@@ -7,6 +7,12 @@ const should = chai.should();
 const Local = require('../models/LocalModel.js');
 
 describe('SetCoords', () => {
+  it('Should set name', () => {
+    const newLocal = new Local();
+    newLocal.setName('name');
+    should.equal(newLocal.getName(), 'name');
+  });
+
   it('Should set latitude', () => {
     const newLocal = new Local();
     newLocal.setLatitude('lat');
