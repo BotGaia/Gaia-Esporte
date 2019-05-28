@@ -18,6 +18,18 @@ describe('Validate database', () => {
   });
 });
 
+describe('Save in database', () => {
+  it('should save sports', (done) => {
+    sport = new Sport('sportTest2');
+    sport.saveSport().then(() => {
+      sport.findMe().then((isFound) => {
+        isFound.should.be.equal(true);
+        done();
+      });
+    });
+  });
+});
+
 describe('Create Sport with temperature condition', () => {
   it('Should create a sport named sport with temperature of length 1', () => {
     mongooseConnection.connect().then(() => {

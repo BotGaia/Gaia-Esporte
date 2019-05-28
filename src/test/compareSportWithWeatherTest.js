@@ -9,6 +9,7 @@ const Interval = require('../models/IntervalModel');
 
 const fakeWeather = { temperature: 1500, humidity: 2.0, windyspeed: 2.0 };
 const should = chai.should();
+const { expect } = chai;
 
 describe('Compare current and favorable weather conditions', () => {
   it('should have temperature equal or not', () => {
@@ -34,4 +35,10 @@ describe('Compare current and favorable weather conditions', () => {
     const tof = compare.compareWindSpeed(sport.getSport(), fakeWeather);
     tof.should.be.equal(false);
   });
+
+  // it('should have all sports', () => {
+  //   sportTest = compare.getAllSports();
+  //   expect(sportTest).to.be.a('Array');
+  //   done();
+  // });
 });
