@@ -29,7 +29,8 @@ router.get('/climateForecast', (req, res) => {
   requestCoords.getCoords(req.query.place).then((coordsJson) => {
     requestWeather.getForecast(coordsJson).then((forecastJson) => {
       const date = new Date(req.query.date);
-      if (date instanceof Date) {
+      // eslint-disable-next-line no-restricted-globals
+      if (isNaN(date.getTime()) || date instanceof Date === false) {
         res.json('Formato inválido! Tente da seguinte maneira: AAAA-MM-DD. Formato do horário: THH%3AMM');
       } else if (forecastJson.cod === '200') {
         const weatherArray = [];
