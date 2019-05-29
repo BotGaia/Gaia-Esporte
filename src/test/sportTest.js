@@ -71,4 +71,10 @@ describe('Create Sport with windy speed condition', () => {
       recommendation.should.not.be.equal('Array');
     });
   });
+  describe('All Sports', () => {
+    it('should have all sports', () => {
+      compare.getAllSports();
+      compare.should.not.be.equal('Array');
+    });
+  });
 });
