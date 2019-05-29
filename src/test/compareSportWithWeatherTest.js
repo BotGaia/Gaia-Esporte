@@ -36,9 +36,18 @@ describe('Compare current and favorable weather conditions', () => {
     tof.should.be.equal(false);
   });
 
-  // it('should have all sports', () => {
-  //   sportTest = compare.getAllSports();
-  //   expect(sportTest).to.be.a('Array');
-  //   done();
-  // });
+  it('should compare sport with weather', () => {
+    const sport = new Sport('sportTest4');
+    const interval = new Interval('3000', '1000');
+    sport.appendWindSpeedInterval(interval);
+    const tof = compare.compareWeather(sport.getSport(), fakeWeather);
+    tof.should.be.equal(0);
+  });
+
+  it('should compare all sports with weather', () => {
+    compare.compare(fakeWeather).then((array) => {
+      array.should.be.equal('Object');
+      done();
+    });
+  });
 });
