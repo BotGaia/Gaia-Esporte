@@ -46,8 +46,7 @@ describe('Compare current and favorable weather conditions', () => {
 
   it('should compare all sports with weather', () => {
     compare.compare(fakeWeather).then((array) => {
-      array.should.be.equal('Object');
-      done();
+      array.should.not.be.equal('Array');
     });
   });
 });
