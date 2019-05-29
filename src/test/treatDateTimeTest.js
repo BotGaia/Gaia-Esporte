@@ -12,4 +12,10 @@ describe('Treat Time', () => {
     time.should.not.be.a('Float');
     done();
   }).timeout(5000);
+
+  it('Should get date info', (done) => {
+    const time = treatTime.getDateInfo();
+    time.should.not.be.a('Float');
+    done();
+  }).timeout(5000);
 });
