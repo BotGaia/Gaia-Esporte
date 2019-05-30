@@ -29,6 +29,13 @@ module.exports = {
           resolve();
         });
       }).catch();
+    } else if (process.env.ENVIRONMENT === 'production') {
+      mongoose.connect(`mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@35.222.146.138/${process.env.DB}`,
+        { useNewUrlParser: true }).then(() => {
+        saveSports.saveAllSports().then(() => {
+          resolve();
+        });
+      }).catch();
     }
   }),
 };
