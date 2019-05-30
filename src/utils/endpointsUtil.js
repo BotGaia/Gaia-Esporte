@@ -94,6 +94,23 @@ module.exports = {
         description: 'Returns all the sports in the database',
       },
       {
+        type: 'GET',
+        endpoint: '/allNotifications',
+        parameters: [],
+        description: 'Returns all the notifications in the database',
+      },
+      {
+        type: 'GET',
+        endpoint: '/userNotification',
+        parameters: [
+          {
+            id: 'telegramId',
+            type: 'string',
+          },
+        ],
+        description: 'Receives a telegramId and returns all notifications for a specific user',
+      },
+      {
         type: 'POST',
         endpoint: '/createNotification',
         JSON: {

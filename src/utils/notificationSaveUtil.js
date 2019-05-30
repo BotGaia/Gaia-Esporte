@@ -1,6 +1,9 @@
+const mongoose = require('mongoose');
 const Notification = require('../models/NotificationModel');
 const timeMath = require('./timeMathUtil');
+const NotificationSchema = require('../schemas/notificationSchema');
 
+const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
 module.exports = {
 
@@ -32,6 +35,13 @@ module.exports = {
 
     notification.findMe().then(() => {
       notification.saveNotification().then(() => resolve(notification));
+    });
+  }),
+
+  getAllNotifications: () => new Promise((resolve) => {
+    NotificationModel.find({ class: 'notification' }).then((array) => {
+      resolve(array);
+    }).catch(() => {
     });
   }),
 };

@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const requestCoords = require('./requests/coordsRequest');
 const endpoints = require('./utils/endpointsUtil');
 const requestWeather = require('../src/requests/weatherRequest');
@@ -7,7 +8,10 @@ const comparation = require('./utils/compareSportWithWeatherUtil');
 const hourlyForecast = require('./utils/hourlyForecastUtil');
 const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
 const saveNotification = require('./utils/notificationSaveUtil');
+const Notification = require('../src/models/NotificationModel');
+const NotificationSchema = require('../src/schemas/notificationSchema');
 
+const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -129,6 +133,19 @@ router.get('/sports', (req, res) => {
 
 router.get('/allSports', (req, res) => {
   comparation.getAllSports().then((array) => {
+    res.json(array);
+  });
+});
+
+router.get('/allNotifications', (req, res) => {
+  saveNotification.getAllNotifications().then((array) => {
+    res.json(array);
+  });
+});
+
+router.get('/userNotification', (req, res) => {
+  const notification = new Notification(req.query.id);
+  NotificationModel.find({ telegramId: notification.getTelegramId() }).then((array) => {
     res.json(array);
   });
 });
