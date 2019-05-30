@@ -42,4 +42,16 @@ describe('GET ATTRIBUTES', () => {
     date.should.equal('segunda-feira 4:16:08');
     done();
   }).timeout(5000);
+
+  it('should get Date time', (done) => {
+    const date = treatment.treatDate('1559180224', 'forecast');
+    date.should.equal('quinta-feira 22:37:04');
+    done();
+  }).timeout(5000);
+
+  it('should get Date Sunrise', (done) => {
+    const date = treatment.treatDate('1559180224', 'weather');
+    date.should.equal('22:37:04');
+    done();
+  }).timeout(5000);
 });
