@@ -4,10 +4,10 @@ const NotificationSchema = require('../schemas/notificationSchema');
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
 module.exports = class Notification {
-  constructor(telegramId) {
+  constructor() {
     this.notification = new NotificationModel({
       class: 'notification',
-      telegramId,
+      telegramId: '',
       sport: '',
       days: [],
       hour: 0,
