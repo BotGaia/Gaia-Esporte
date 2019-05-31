@@ -55,5 +55,5 @@ module.exports = {
     });
   }),
 
-  //deleteNotification: () => new P
+  // deleteNotification: () => new P
 };

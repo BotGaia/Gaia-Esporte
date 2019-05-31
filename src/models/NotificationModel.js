@@ -104,10 +104,13 @@ module.exports = class Notification {
     });
   }
 
-  deleteMe(telegramId1, sport1) {
+  deleteMe() {
     return new Promise((resolve) => {
-      NotificationModel.deleteOne({ telegramId: telegramId1, sport: sport1 },
-        (err) => { if (err) { resolve(false); } }).then((notification) => {
+      NotificationModel.deleteOne({
+        telegramId: this.notification.telegramId,
+        sport: this.notification.sport,
+      },
+      (err) => { if (err) { resolve(false); } }).then((notification) => {
         if (!notification) {
           resolve(true);
         }

@@ -8,7 +8,6 @@ const comparation = require('./utils/compareSportWithWeatherUtil');
 const hourlyForecast = require('./utils/hourlyForecastUtil');
 const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
 const saveNotification = require('./utils/notificationSaveUtil');
-const Notification = require('../src/models/NotificationModel');
 const NotificationSchema = require('../src/schemas/notificationSchema');
 
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
@@ -148,30 +147,15 @@ router.get('/userNotification', (req, res) => {
     res.json(array);
   });
 });
-/*
-router.get('/deleteNotification', (req, res) => {
-  NotificationModel.find({ telegramId: req.query.id , sport: req.query.sport}).then((isFound) => {
-    if (isFound) {
-      console.log(isFound);
-      NotificationModel.deleteOne().then(() => {
-        res.send('Notificação excluída');
-      });
-    } else {
-      console,log("nao achado");
-      process.exit();
-    }
-  });
-});*/
 
 router.get('/deleteNotification', (req, res) => {
-  const notification = new Notification();
   NotificationModel.find({ telegramId: req.query.id, sport: req.query.sport }).then((isFound) => {
     if (isFound) {
-      notification.deleteMe(req.query.id, req.query.sport).then(() => {
-      res.send('excluido');
+      NotificationModel.deleteOne().then(() => {
+        res.send('notificação excluída');
       });
-    }
-    else {
+    } else {
+      res.send('erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&sport=sport');
       process.exit();
     }
   });
