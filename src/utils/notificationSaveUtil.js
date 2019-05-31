@@ -34,12 +34,18 @@ module.exports = {
       notification.appendLocal(element);
     });
 
-      NotificationModel.find({
-        telegramID: notification.getTelegramId(), days: notification.getDays(),
-        minutesbefore: notification.getMinutesBefore(), hoursBefore: notification.getHoursBefore(),
-        hour: notification.getHour(), minutes: notification.getMinutes(), sport: notification.getSport(),
-        locals: notification.getLocal()
-      }).then(() => resolve(notification));
+    NotificationModel.find({
+      telegramID: notification.getTelegramId(),
+      days: notification.getDays(),
+      minutesbefore: notification.getMinutesBefore(),
+      hoursBefore: notification.getHoursBefore(),
+      hour: notification.getHour(),
+      minutes: notification.getMinutes(),
+      sport: notification.getSport(),
+      locals: notification.getLocal(),
+    }).then(() => {
+      notification.saveNotification().then(() => resolve(notification));
+    });
   }),
 
   getAllNotifications: () => new Promise((resolve) => {
@@ -48,4 +54,6 @@ module.exports = {
     }).catch(() => {
     });
   }),
+
+  //deleteNotification: () => new P
 };

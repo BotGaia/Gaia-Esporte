@@ -148,12 +148,27 @@ router.get('/userNotification', (req, res) => {
     res.json(array);
   });
 });
+/*
+router.get('/deleteNotification', (req, res) => {
+  NotificationModel.find({ telegramId: req.query.id , sport: req.query.sport}).then((isFound) => {
+    if (isFound) {
+      console.log(isFound);
+      NotificationModel.deleteOne().then(() => {
+        res.send('Notificação excluída');
+      });
+    } else {
+      console,log("nao achado");
+      process.exit();
+    }
+  });
+});*/
 
 router.get('/deleteNotification', (req, res) => {
-  NotificationModel.find({ telegramId: req.query.id }).then((isFound) => {
+  const notification = new Notification();
+  NotificationModel.find({ telegramId: req.query.id, sport: req.query.sport }).then((isFound) => {
     if (isFound) {
-      NotificationModel.deleteMe().then(() => {
-      res.send("Notificação excluída");
+      notification.deleteMe(req.query.id, req.query.sport).then(() => {
+      res.send('excluido');
       });
     }
     else {

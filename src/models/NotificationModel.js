@@ -104,25 +104,11 @@ module.exports = class Notification {
     });
   }
 
-  deleteMe() {
+  deleteMe(telegramId1, sport1) {
     return new Promise((resolve) => {
-      NotificationModel.deleteOne({ telegramId: this.notification.telegramId },
+      NotificationModel.deleteOne({ telegramId: telegramId1, sport: sport1 },
         (err) => { if (err) { resolve(false); } }).then((notification) => {
-        if (notification) {
-          this.notification = notification;
-          resolve(true);
-        }
-        resolve(false);
-      });
-    });
-  }
-
-  findMe() {
-    return new Promise((resolve) => {
-      NotificationModel.findOne({ telegramId: this.notification.telegramId },
-        (err) => { if (err) { resolve(false); } }).then((notification) => {
-        if (notification) {
-          this.notification = notification;
+        if (!notification) {
           resolve(true);
         }
         resolve(false);
