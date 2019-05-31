@@ -11,9 +11,10 @@ chai.use(chaiHttp);
 describe('Routes', () => {
   it('Should get climate forecast', (done) => {
     const today = new Date();
-    let day = (today.getDate() + 1).toString();
-    let month = (today.getMonth() + 1).toString();
-    const year = today.getFullYear().toString();
+    const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+    let day = tomorrow.getDate().toString();
+    let month = (tomorrow.getMonth() + 1).toString();
+    const year = tomorrow.getFullYear().toString();
     if (day.length < 2) {
       day = `0${day}`;
     }
