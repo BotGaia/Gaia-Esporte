@@ -152,10 +152,10 @@ router.get('/deleteNotification', (req, res) => {
   NotificationModel.find({ telegramId: req.query.id, sport: req.query.sport }).then((isFound) => {
     if (isFound) {
       NotificationModel.deleteOne().then(() => {
-        res.send('notificação excluída');
+        res.send('Notificação excluída');
       });
     } else {
-      res.send('erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&sport=sport');
+      res.send('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&sport=sport');
       process.exit();
     }
   });

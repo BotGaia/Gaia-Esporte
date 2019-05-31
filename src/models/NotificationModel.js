@@ -103,19 +103,4 @@ module.exports = class Notification {
       });
     });
   }
-
-  deleteMe() {
-    return new Promise((resolve) => {
-      NotificationModel.deleteOne({
-        telegramId: this.notification.telegramId,
-        sport: this.notification.sport,
-      },
-      (err) => { if (err) { resolve(false); } }).then((notification) => {
-        if (!notification) {
-          resolve(true);
-        }
-        resolve(false);
-      });
-    });
-  }
 };

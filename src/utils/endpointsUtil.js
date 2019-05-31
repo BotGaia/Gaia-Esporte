@@ -104,8 +104,8 @@ module.exports = {
         endpoint: '/userNotification',
         parameters: [
           {
-            id: 'telegramId',
-            type: 'string',
+            name: 'id',
+            type: 'String',
           },
         ],
         description: 'Receives a telegramId and returns all notifications for a specific user',
@@ -124,6 +124,21 @@ module.exports = {
           locals: 'Array',
         },
         description: 'Saves a notification in the system',
+      },
+      {
+        type: 'GET',
+        endpoint: '/deleteNotification',
+        parameters: [
+          {
+            name: 'id',
+            type: 'String',
+          },
+          {
+            name: 'sport',
+            type: 'String',
+          },
+        ],
+        description: 'Delete a notification of a specific user',
       },
     ];
 
