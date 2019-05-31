@@ -150,6 +150,20 @@ router.get('/userNotification', (req, res) => {
   });
 });
 
+router.get('/deleteNotification', (req, res) => {
+  const notification = new Notification(req.query.id);
+  NotificationModel.find({ telegramId: notification.getTelegramId() }).then((isFound) => {
+    if (isFound) {
+      notification.deleteMe().then(() => {
+      res.send("Notificação excluída");
+      });
+    }
+    else {
+      process.exit();
+    }
+  });
+});
+
 router.post('/createNotification', (req, res) => {
   saveNotification.saveNotification(req.body).then((notification) => {
     res.send(notification.notification);
