@@ -94,6 +94,23 @@ module.exports = {
         description: 'Returns all the sports in the database',
       },
       {
+        type: 'GET',
+        endpoint: '/allNotifications',
+        parameters: [],
+        description: 'Returns all the notifications in the database',
+      },
+      {
+        type: 'GET',
+        endpoint: '/userNotification',
+        parameters: [
+          {
+            name: 'id',
+            type: 'String',
+          },
+        ],
+        description: 'Receives a telegramId and returns all notifications for a specific user',
+      },
+      {
         type: 'POST',
         endpoint: '/createNotification',
         JSON: {
@@ -107,6 +124,21 @@ module.exports = {
           locals: 'Array',
         },
         description: 'Saves a notification in the system',
+      },
+      {
+        type: 'GET',
+        endpoint: '/deleteNotification',
+        parameters: [
+          {
+            name: 'id',
+            type: 'String',
+          },
+          {
+            name: 'number',
+            type: 'Integer',
+          },
+        ],
+        description: 'Delete a notification of a specific user',
       },
     ];
 
