@@ -134,8 +134,8 @@ module.exports = {
             type: 'String',
           },
           {
-            name: 'sport',
-            type: 'String',
+            name: 'number',
+            type: 'Integer',
           },
         ],
         description: 'Delete a notification of a specific user',

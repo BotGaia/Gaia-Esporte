@@ -131,33 +131,35 @@ router.get('/sports', (req, res) => {
 });
 
 router.get('/allSports', (req, res) => {
-  comparation.getAllSports().then((array) => {
-    res.json(array);
+  comparation.getAllSports().then((notifications) => {
+    res.json(notifications);
   });
 });
 
 router.get('/allNotifications', (req, res) => {
-  treatNotification.getAllNotifications().then((array) => {
-    res.json(array);
+  treatNotification.getAllNotifications().then((notifications) => {
+    res.json(notifications);
   });
 });
 
 router.get('/userNotification', (req, res) => {
-  NotificationModel.find({ telegramId: req.query.id }).then((array) => {
-    res.json(array);
+  NotificationModel.find({ telegramId: req.query.id }).then((notifications) => {
+    res.json(notifications);
   });
 });
 
 router.get('/deleteNotification', (req, res) => {
-  NotificationModel.find({ telegramId: req.query.id }).then((isFound) => {
-    if (isFound) {
-      NotificationModel.deleteOne().then(() => {
-        res.send('Notificação excluída');
-      });
-    } else {
-      res.send('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&sport=sport');
-      process.exit();
-    }
+  NotificationModel.find({ telegramId: req.query.id }).then((notification) => {
+    NotificationModel.find(notification[req.query.number]).then((isFound) => {
+      if (isFound) {
+        NotificationModel.deleteOne().then(() => {
+          res.send('Notificação excluída');
+        });
+      } else {
+        res.send('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber');
+        process.exit();
+      }
+    });
   });
 });
 
