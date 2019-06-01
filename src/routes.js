@@ -7,7 +7,7 @@ const Weather = require('../src/models/WeatherModel');
 const comparation = require('./utils/compareSportWithWeatherUtil');
 const hourlyForecast = require('./utils/hourlyForecastUtil');
 const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
-const saveNotification = require('./utils/notificationSaveUtil');
+const treatNotification = require('./utils/treatNotificationUtil');
 const NotificationSchema = require('../src/schemas/notificationSchema');
 
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
@@ -137,7 +137,7 @@ router.get('/allSports', (req, res) => {
 });
 
 router.get('/allNotifications', (req, res) => {
-  saveNotification.getAllNotifications().then((array) => {
+  treatNotification.getAllNotifications().then((array) => {
     res.json(array);
   });
 });
@@ -149,7 +149,7 @@ router.get('/userNotification', (req, res) => {
 });
 
 router.get('/deleteNotification', (req, res) => {
-  NotificationModel.find({ telegramId: req.query.id, sport: req.query.sport }).then((isFound) => {
+  NotificationModel.find({ telegramId: req.query.id }).then((isFound) => {
     if (isFound) {
       NotificationModel.deleteOne().then(() => {
         res.send('Notificação excluída');
@@ -162,7 +162,7 @@ router.get('/deleteNotification', (req, res) => {
 });
 
 router.post('/createNotification', (req, res) => {
-  saveNotification.saveNotification(req.body).then((notification) => {
+  treatNotification.saveNotification(req.body).then((notification) => {
     res.send(notification.notification);
   });
 });
