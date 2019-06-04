@@ -153,10 +153,10 @@ router.get('/deleteNotification', (req, res) => {
     NotificationModel.find(notification[req.query.number]).then((isFound) => {
       if (isFound) {
         NotificationModel.deleteOne().then(() => {
-          res.send('Notificação excluída');
+          res.json('Notificação excluída');
         });
       } else {
-        res.send('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber');
+        res.json('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber');
         process.exit();
       }
     });
