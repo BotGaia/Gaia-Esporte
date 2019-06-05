@@ -94,7 +94,7 @@ module.exports = {
       case 6:
         day = 'sábado ';
         break;
-      case 7:
+      case 0:
         day = 'domingo ';
         break;
       default:
