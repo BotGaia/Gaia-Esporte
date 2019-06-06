@@ -144,7 +144,7 @@ router.get('/allNotifications', (req, res) => {
 
 router.get('/userNotification', (req, res) => {
   NotificationModel.find({ telegramId: req.query.id }).then((notifications) => {
-    res.json(notifications);
+      res.json(notifications);
   });
 });
 
@@ -156,16 +156,18 @@ router.get('/deleteNotification', (req, res) => {
   }
   NotificationModel.find({ telegramId: req.query.id }).then((notifications) => {
     if (notifications.length <= 0) {
-      res.json('Erro ao encontrar usuário');
+      res.json('Erro ao encontrar usuário.');
       return;
     }
+    
     NotificationModel.find(notifications[req.query.number]).then((isFound) => {
       if (isFound) {
-        NotificationModel.deleteOne().then(() => {
-          res.json('Notificação excluída');
+        console.log(req.query.number);
+        NotificationModel.deleteOne(notifications[req.query.number]).then(() => {
+          res.json('Notificação excluída.');
         });
       } else {
-        res.json('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber');
+        res.json('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber.');
         process.exit();
       }
     });
