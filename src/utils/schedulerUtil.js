@@ -7,18 +7,18 @@ const TreatTime = require('./treatTimeUtil');
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
 function getDailyNotifications(weekDay) {
-  const dailyArray = new Array([]);
+  const dailyArray = [];
   return new Promise((resolve) => {
     NotificationModel.find({ class: 'notification' }).then((notificationArray) => {
       notificationArray.forEach((notification) => {
         notification.days.forEach((day) => {
           if (day === weekDay) {
-            dailyArray.push(day);
+            dailyArray.push(notification);
           }
         });
       });
+      resolve(dailyArray);
     });
-    resolve(dailyArray);
   });
 }
 
@@ -26,8 +26,7 @@ function getDailyNotifications(weekDay) {
 function postNotification(notification) {
   return new Promise((resolve) => {
     const postUrl = `${global.URL_CLIMATE}/notifyUser`;
-
-    axios.post(postUrl, notification.notification).then((res) => {
+    axios.post(postUrl, notification).then((res) => {
       resolve(res.body);
     });
   });
@@ -47,6 +46,7 @@ async function makeSchedule(notification) {
 
 function notificationSchedule() {
   const weekDay = TreatTime.getDateTime();
+
   getDailyNotifications(weekDay).then((dailyArray) => {
     for (let i = 0; i < dailyArray.length; i += 1) {
       makeSchedule(dailyArray[i]);
