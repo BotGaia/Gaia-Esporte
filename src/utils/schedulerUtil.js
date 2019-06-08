@@ -33,13 +33,38 @@ function postNotification(notification) {
 }
 
 async function makeSchedule(notification) {
+  let job;
   if (notification.minutesBefore || notification.hoursBefore) {
-    schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(notification.hoursBefore + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(notification.hoursBefore + 3).toString()} * * *`, () => {
       postNotification(notification);
+      job.cancel();
     });
   } else if (notification.minutes) {
-    schedule.scheduleJob(`${(notification.minutes).toString()} ${(notification.hours + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutes).toString()} ${(notification.hours + 3).toString()} * * *`, () => {
       postNotification(notification);
+      job.cancel();
+    });
+  }
+}
+
+function scheduleOne(notification) {
+  const weekDay = TreatTime.getDateTime();
+  const date = new Date();
+  if (notification.days) {
+    notification.days.forEach((day) => {
+      if (day === weekDay) {
+        if (notification.minutesBefore || notification.hoursBefore) {
+          if (notification.hoursBefore >= date.getHours()) {
+            if (notification.minutesBefore > date.getMinutes()) {
+              makeSchedule(notification);
+            }
+          }
+        } else if (notification.hours >= date.getHours()) {
+          if (notification.minutes > date.getMinutes()) {
+            makeSchedule(notification);
+          }
+        }
+      }
     });
   }
 }
@@ -66,4 +91,5 @@ module.exports = {
   makeSchedule,
   getDailyNotifications,
   notificationSchedule,
+  scheduleOne,
 };

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Notification = require('../models/NotificationModel');
 const timeMath = require('./timeMathUtil');
 const NotificationSchema = require('../schemas/notificationSchema');
+const scheduler = require('../utils/schedulerUtil');
 
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
@@ -44,7 +45,10 @@ module.exports = {
       sport: notification.getSport(),
       locals: notification.getLocal(),
     }).then(() => {
-      notification.saveNotification().then(() => resolve(notification));
+      notification.saveNotification().then(() => {
+        scheduler.scheduleOne(notification);
+        resolve(notification);
+      });
     });
   }),
 
