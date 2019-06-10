@@ -7,18 +7,18 @@ const TreatTime = require('./treatTimeUtil');
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
 function getDailyNotifications(weekDay) {
-  const dailyArray = new Array([]);
+  const dailyArray = [];
   return new Promise((resolve) => {
     NotificationModel.find({ class: 'notification' }).then((notificationArray) => {
       notificationArray.forEach((notification) => {
         notification.days.forEach((day) => {
           if (day === weekDay) {
-            dailyArray.push(day);
+            dailyArray.push(notification);
           }
         });
       });
+      resolve(dailyArray);
     });
-    resolve(dailyArray);
   });
 }
 
@@ -26,27 +26,52 @@ function getDailyNotifications(weekDay) {
 function postNotification(notification) {
   return new Promise((resolve) => {
     const postUrl = `${global.URL_CLIMATE}/notifyUser`;
-
-    axios.post(postUrl, notification.notification).then((res) => {
+    axios.post(postUrl, notification).then((res) => {
       resolve(res.body);
     });
   });
 }
 
 async function makeSchedule(notification) {
+  let job;
   if (notification.minutesBefore || notification.hoursBefore) {
-    schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(notification.hoursBefore + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(notification.hoursBefore + 3).toString()} * * *`, () => {
       postNotification(notification);
+      job.cancel();
     });
   } else if (notification.minutes) {
-    schedule.scheduleJob(`${(notification.minutes).toString()} ${(notification.hours + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutes).toString()} ${(notification.hours + 3).toString()} * * *`, () => {
       postNotification(notification);
+      job.cancel();
+    });
+  }
+}
+
+function scheduleOne(notification) {
+  const weekDay = TreatTime.getDateTime();
+  const date = new Date();
+  if (notification.days) {
+    notification.days.forEach((day) => {
+      if (day === weekDay) {
+        if (notification.minutesBefore || notification.hoursBefore) {
+          if (notification.hoursBefore >= date.getHours()) {
+            if (notification.minutesBefore > date.getMinutes()) {
+              makeSchedule(notification);
+            }
+          }
+        } else if (notification.hours >= date.getHours()) {
+          if (notification.minutes > date.getMinutes()) {
+            makeSchedule(notification);
+          }
+        }
+      }
     });
   }
 }
 
 function notificationSchedule() {
   const weekDay = TreatTime.getDateTime();
+
   getDailyNotifications(weekDay).then((dailyArray) => {
     for (let i = 0; i < dailyArray.length; i += 1) {
       makeSchedule(dailyArray[i]);
@@ -66,4 +91,5 @@ module.exports = {
   makeSchedule,
   getDailyNotifications,
   notificationSchedule,
+  scheduleOne,
 };

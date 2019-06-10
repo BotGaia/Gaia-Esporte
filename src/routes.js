@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const requestCoords = require('./requests/coordsRequest');
 const endpoints = require('./utils/endpointsUtil');
 const requestWeather = require('../src/requests/weatherRequest');
@@ -6,8 +7,10 @@ const Weather = require('../src/models/WeatherModel');
 const comparation = require('./utils/compareSportWithWeatherUtil');
 const hourlyForecast = require('./utils/hourlyForecastUtil');
 const sportForecastRecommendation = require('./utils/sportForecastRecommendationUtil');
-const saveNotification = require('./utils/notificationSaveUtil');
+const treatNotification = require('./utils/treatNotificationUtil');
+const NotificationSchema = require('../src/schemas/notificationSchema');
 
+const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -128,13 +131,50 @@ router.get('/sports', (req, res) => {
 });
 
 router.get('/allSports', (req, res) => {
-  comparation.getAllSports().then((array) => {
-    res.json(array);
+  comparation.getAllSports().then((notifications) => {
+    res.json(notifications);
+  });
+});
+
+router.get('/allNotifications', (req, res) => {
+  treatNotification.getAllNotifications().then((notifications) => {
+    res.json(notifications);
+  });
+});
+
+router.get('/userNotification', (req, res) => {
+  NotificationModel.find({ telegramId: req.query.id }).then((notifications) => {
+    res.json(notifications);
+  });
+});
+
+router.get('/deleteNotification', (req, res) => {
+  // eslint-disable-next-line no-restricted-globals
+  if (!req.query.id || !req.query.number || isNaN(req.query.number)) {
+    res.json('Parâmetro inválido, tente da seguinte maneira: id=telegramId&number=arrayNumber');
+    return;
+  }
+  NotificationModel.find({ telegramId: req.query.id }).then((notifications) => {
+    if (notifications.length <= 0) {
+      res.json({});
+      return;
+    }
+
+    NotificationModel.find(notifications[req.query.number]).then((isFound) => {
+      if (isFound) {
+        NotificationModel.deleteOne(notifications[req.query.number]).then(() => {
+          res.json('Notificação excluída.');
+        });
+      } else {
+        res.json('Erro ao encontrar a notificação, tente da seguinte maneira: id=telegramId&number=arrayNumber.');
+        process.exit();
+      }
+    });
   });
 });
 
 router.post('/createNotification', (req, res) => {
-  saveNotification.saveNotification(req.body).then((notification) => {
+  treatNotification.saveNotification(req.body).then((notification) => {
     res.send(notification.notification);
   });
 });

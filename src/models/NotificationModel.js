@@ -4,10 +4,10 @@ const NotificationSchema = require('../schemas/notificationSchema');
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
 module.exports = class Notification {
-  constructor(telegramId) {
+  constructor() {
     this.notification = new NotificationModel({
       class: 'notification',
-      telegramId,
+      telegramId: '',
       sport: '',
       days: [],
       hour: 0,
@@ -100,19 +100,6 @@ module.exports = class Notification {
     return new Promise((resolve) => {
       this.notification.save().then(() => {
         resolve();
-      });
-    });
-  }
-
-  findMe() {
-    return new Promise((resolve) => {
-      NotificationModel.findOne({ telegramId: this.notification.telegramId },
-        (err) => { if (err) { resolve(false); } }).then((notification) => {
-        if (notification) {
-          this.notification = notification;
-          resolve(true);
-        }
-        resolve(false);
       });
     });
   }

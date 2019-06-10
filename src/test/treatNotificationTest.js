@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const chai = require('chai');
-const SaveNotification = require('../utils/notificationSaveUtil');
+const treatNotification = require('../utils/treatNotificationUtil');
 
 const mockJson = {
   telegramId: 'testId38',
@@ -17,7 +17,7 @@ const mockJson = {
 
 describe('Save notification', () => {
   it('Save notification', (done) => {
-    SaveNotification.saveNotification(mockJson).then((notification) => {
+    treatNotification.saveNotification(mockJson).then((notification) => {
       notification.getTelegramId().should.eql('testId38');
       notification.getSport().should.eql('testSport');
       done();
