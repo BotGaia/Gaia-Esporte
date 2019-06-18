@@ -1,4 +1,8 @@
+const mongoose = require('mongoose');
 const Sport = require('../models/SportModel');
+const SportSchema = require('../schemas/sportSchema');
+
+const SportModel = mongoose.model('SportModel', SportSchema);
 
 module.exports = {
   saveSports(sports) {
@@ -17,6 +21,14 @@ module.exports = {
         if (!isFound) {
           sport.saveSport();
         }
+      });
+    });
+  },
+
+  deleteAllSports() {
+    return new Promise((resolve) => {
+      SportModel.deleteMany({ class: 'sport' }).then(() => {
+        resolve();
       });
     });
   },
