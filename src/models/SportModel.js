@@ -30,6 +30,14 @@ module.exports = class Sport {
     return this.sport;
   }
 
+  deleteAllSports() {
+    return new Promise((resolve) => {
+      SportModel.deleteMany({ class: this.sport.class }).then(() => {
+        resolve();
+      });
+    });
+  }
+
   saveSport() {
     return new Promise((resolve) => {
       this.sport.save().then(() => {
