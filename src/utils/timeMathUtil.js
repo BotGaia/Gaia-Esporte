@@ -19,4 +19,14 @@ module.exports = {
     }
     return [targetHours, targetMinutes];
   },
+
+  treatHour(hour) {
+    let targetHour = 0;
+    if ((hour + 3) > 23) {
+      targetHour = hour - 21;
+    } else {
+      targetHour = hour + 3;
+    }
+    return targetHour;
+  },
 };

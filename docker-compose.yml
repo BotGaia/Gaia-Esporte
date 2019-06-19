@@ -8,6 +8,7 @@ services:
       - API_KEY_LOCAL=${API_KEY_LOCAL}
       - API_KEY_CLIMA=${API_KEY_CLIMA}
       - ENVIRONMENT=dev
+      - IP_ADDRESS=${IP_ADDRESS}
     volumes:
       - .:/app
       - /app/node_modules

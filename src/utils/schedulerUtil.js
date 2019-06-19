@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const NotificationSchema = require('../schemas/notificationSchema');
 const TreatTime = require('./treatTimeUtil');
+const timeMath = require('./timeMathUtil');
 
 const NotificationModel = mongoose.model('NotificationModel', NotificationSchema);
 
@@ -22,10 +23,9 @@ function getDailyNotifications(weekDay) {
   });
 }
 
-
 function postNotification(notification) {
   return new Promise((resolve) => {
-    const postUrl = `${global.URL_CLIMATE}/notifyUser`;
+    const postUrl = `${global.URL_GATEWAY}/`;
     axios.post(postUrl, notification).then((res) => {
       resolve(res.body);
     });
@@ -34,13 +34,15 @@ function postNotification(notification) {
 
 async function makeSchedule(notification) {
   let job;
+  const hour = timeMath.treatHour(notification.hour);
+  const hourBefore = timeMath.treatHour(notification.hoursBefore);
   if (notification.minutesBefore || notification.hoursBefore) {
-    job = schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(notification.hoursBefore + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutesBefore).toString()} ${(hourBefore).toString()} * * *`, () => {
       postNotification(notification);
       job.cancel();
     });
   } else if (notification.minutes) {
-    job = schedule.scheduleJob(`${(notification.minutes).toString()} ${(notification.hours + 3).toString()} * * *`, () => {
+    job = schedule.scheduleJob(`${(notification.minutes).toString()} ${(hour).toString()} * * *`, () => {
       postNotification(notification);
       job.cancel();
     });
