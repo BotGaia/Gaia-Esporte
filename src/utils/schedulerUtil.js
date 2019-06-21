@@ -25,7 +25,7 @@ function getDailyNotifications(weekDay) {
 
 function postNotification(notification) {
   return new Promise((resolve) => {
-    const postUrl = `${global.URL_GATEWAY}/`;
+    const postUrl = `http://192.168.0.16:3002/`;
     axios.post(postUrl, notification).then((res) => {
       resolve(res.body);
     });
@@ -52,16 +52,17 @@ async function makeSchedule(notification) {
 function scheduleOne(notification) {
   const weekDay = TreatTime.getDateTime();
   const date = new Date();
+  date.setHours(date.getHours() - 3);
   if (notification.days) {
     notification.days.forEach((day) => {
       if (day === weekDay) {
-        if (notification.minutesBefore || notification.hoursBefore) {
+        if (notification.minutesBefore !== 0 || notification.hoursBefore !== 0) {
           if (notification.hoursBefore >= date.getHours()) {
             if (notification.minutesBefore > date.getMinutes()) {
               makeSchedule(notification);
             }
           }
-        } else if (notification.hours >= date.getHours()) {
+        } else if (notification.hour >= date.getHours()) {
           if (notification.minutes > date.getMinutes()) {
             makeSchedule(notification);
           }

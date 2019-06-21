@@ -13,7 +13,9 @@ function getHoursAhead(dateAhead) {
 module.exports = {
   getHourlyForecast: (weatherArray, date) => {
     const hoursAhead = getHoursAhead(date);
-
+    console.log("hoursAhead")
+    console.log(hoursAhead)
+    console.log(date)
     if (hoursAhead === 'invalid') {
       return 'Formato inválido! Tente da seguinte maneira: AAAA-MM-DD. Formato do horário: THH%3AMM';
     }

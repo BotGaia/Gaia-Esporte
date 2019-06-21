@@ -51,9 +51,8 @@ router.get('/climateForecast', (req, res) => {
 });
 
 router.post('/sportForecast', (req, res) => {
-  const resultArray = [];
-  let i = 0;
-  req.body.locals.forEach((local) => {
+  const local = req.body.local;
+
     requestCoords.getCoords(local).then((coordsJson) => {
       requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
         if (forecastJson.cod === '200') {
@@ -61,21 +60,17 @@ router.post('/sportForecast', (req, res) => {
 
           forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
 
-          const resultItem = await sportForecastRecommendation
+          const result = await sportForecastRecommendation
             .getForecastRecommendation(weatherArray, req.body);
+            console.log("result:")
+            console.log(result)
 
-          resultArray.push(resultItem);
-          i += 1;
-
-          if (i === req.body.locals.length) {
-            res.json(resultArray);
-          }
+            res.json(result);
         } else {
           res.json(forecastJson.list);
         }
       });
     });
-  });
 });
 
 router.get('/listLocales', (req, res) => {
@@ -175,7 +170,7 @@ router.get('/deleteNotification', (req, res) => {
 
 router.post('/createNotification', (req, res) => {
   treatNotification.saveNotification(req.body).then((notification) => {
-    res.send(notification.notification);
+    res.send(notification);
   });
 });
 

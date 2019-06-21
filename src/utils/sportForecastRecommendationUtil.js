@@ -7,8 +7,10 @@ async function getForecastRecommendation(weatherArray, body) {
   const weather = hourlyForecast
     .getHourlyForecast(
       weatherArray,
-      new Date(body.date),
+      new Date(body.hour, body.minute ),
     );
+  console.log("weather: ")
+  console.log(weather)
   const sport = new Sport(body.sport);
   await sport.findMe();
 
