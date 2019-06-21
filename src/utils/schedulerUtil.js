@@ -25,7 +25,7 @@ function getDailyNotifications(weekDay) {
 
 function postNotification(notification) {
   return new Promise((resolve) => {
-    const postUrl = `http://172.18.0.1:3002/`;
+    const postUrl = `${global.URL_GATEWAY}`;
     axios.post(postUrl, notification).then((res) => {
       resolve(res.body);
     });
