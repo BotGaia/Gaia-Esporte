@@ -27,6 +27,7 @@ module.exports = {
     notification.setSport(requestBody.sport);
     notification.setDate(date.getTime());
 
+
     requestBody.days.forEach((element) => {
       notification.appendDay(element);
     });
@@ -45,7 +46,7 @@ module.exports = {
     }).then(() => {
       notification.saveNotification().then(() => {
         scheduler.scheduleOne(notification.notification);
-        resolve(notification.notification);
+        resolve(notification);
       });
     });
   }),

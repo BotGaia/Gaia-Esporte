@@ -51,26 +51,23 @@ router.get('/climateForecast', (req, res) => {
 });
 
 router.post('/sportForecast', (req, res) => {
-  const local = req.body.local;
+  const { local } = req.body;
 
-    requestCoords.getCoords(local).then((coordsJson) => {
-      requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
-        if (forecastJson.cod === '200') {
-          const weatherArray = [];
+  requestCoords.getCoords(local).then((coordsJson) => {
+    requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
+      if (forecastJson.cod === '200') {
+        const weatherArray = [];
 
-          forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
+        forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
 
-          const result = await sportForecastRecommendation
-            .getForecastRecommendation(weatherArray, req.body);
-            console.log("result:")
-            console.log(result)
-
-            res.json(result);
-        } else {
-          res.json(forecastJson.list);
-        }
-      });
+        const result = await sportForecastRecommendation
+          .getForecastRecommendation(weatherArray, req.body);
+        res.json(result);
+      } else {
+        res.json(forecastJson.list);
+      }
     });
+  });
 });
 
 router.get('/listLocales', (req, res) => {
