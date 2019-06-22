@@ -4,7 +4,7 @@ function getHoursAhead(dateAhead) {
 
   const hoursAhead = (dateAhead.getTime() - today.getTime()) / (60 * 60 * 1000);
 
-  if (hoursAhead > 120 || hoursAhead <= 0) {
+  if (hoursAhead > 120 || hoursAhead < 0) {
     return 'invalid';
   }
   return Math.ceil(hoursAhead);
