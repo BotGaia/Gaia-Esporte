@@ -4,11 +4,20 @@ const compare = require('./compareSportWithWeatherUtil');
 
 async function getForecastRecommendation(weatherArray, body) {
   let result;
+  let date;
+
+  if (body.hoursBefore !== 0) {
+    date = new Date();
+    date.setHours(body.hoursBefore);
+    date.setMinutes(body.minutesBefore);
+  }
+
   const weather = hourlyForecast
     .getHourlyForecast(
       weatherArray,
-      new Date(body.date),
+      date,
     );
+
   const sport = new Sport(body.sport);
   await sport.findMe();
 

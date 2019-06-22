@@ -7,7 +7,7 @@ const NotificationSchema = new mongoose.Schema({
   days: Array,
   hour: Number,
   minutes: Number,
-  locals: Array,
+  local: String,
   hoursBefore: Number,
   minutesBefore: Number,
   date: Date,

@@ -10,7 +10,7 @@ const mockJson = {
   days: [8],
   hour: 12,
   minutes: 30,
-  locals: ['Fabrica do Papai Noel'],
+  locals: 'Fabrica do Papai Noel',
   hoursBefore: 0,
   minutesBefore: 15,
 };

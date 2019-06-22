@@ -12,7 +12,7 @@ module.exports = class Notification {
       days: [],
       hour: 0,
       minutes: 0,
-      locals: [],
+      local: '',
       hoursBefore: 0,
       minutesBefore: 0,
       date: 0,
@@ -88,12 +88,12 @@ module.exports = class Notification {
     return this.notification.minutes;
   }
 
-  appendLocal(local) {
-    this.notification.locals.push(local);
+  setLocal(local) {
+    this.notification.local = local;
   }
 
-  getLocal(index) {
-    return this.notification.locals[index];
+  getLocal() {
+    return this.notification.local;
   }
 
   saveNotification() {
