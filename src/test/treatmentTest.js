@@ -16,13 +16,13 @@ describe('Weather Treatment', () => {
 
   it('should treat sky', (done) => {
     const skyConditions = ['clear sky', 'few clouds', 'broken clouds', 'scattered clouds',
-    'moderate rain', 'light rain', 'overcast clouds', 'light intensity', 'shower rain',
-    'heavy snow', ''];
+      'moderate rain', 'light rain', 'overcast clouds', 'light intensity', 'shower rain',
+      'heavy snow', ''];
     const expectedConditions = ['céu limpo', 'poucas nuvens', 'céu parcialmente nublado',
-    'nuvens dispersas', 'chuva moderada', 'leve chuva', 'céu nublado', 'sol forte',
-    'chuva intensa', 'neve intensa', ''];
+      'nuvens dispersas', 'chuva moderada', 'leve chuva', 'céu nublado', 'sol forte',
+      'chuva intensa', 'neve intensa', ''];
 
-    for(let counter; counter < 11; counter += 1) {
+    for (let counter; counter < 11; counter += 1) {
       const returnedCondition = treatment.treatSky(skyConditions[counter]);
 
       returnedCondition.should.be.a('String').that.is.equal(expectedConditions[counter]);
@@ -39,16 +39,16 @@ describe('Weather Treatment', () => {
 
   it('should treat wind', (done) => {
     const directions = ['leste', 'nordeste', 'norte', 'noroeste', 'oeste', 'sudoeste',
-    'sul', 'sudeste'];
+      'sul', 'sudeste'];
     const none = treatment.treatWind('none');
     let degrees = 0;
 
-    for(let direction of directions) {
+    directions.forEach((direction) => {
       const treatedDegrees = treatment.treatWind(degrees.toString());
 
       treatedDegrees.should.be.a('String').that.is.equal(direction);
       degrees += 45;
-    }
+    });
 
     none.should.be.a('String').that.is.equal('');
 
@@ -58,9 +58,9 @@ describe('Weather Treatment', () => {
   it('should treat date', (done) => {
     const date = new Date(1561916771529);
     const expectedValues = ['sábado 6:52:09', 'sexta-feira 6:52:09', 'quinta-feira 6:52:09',
-    'quarta-feira 6:52:09', 'terça-feira 6:52:09', 'segunda-feira 6:52:09', 'domingo 6:52:09'];
+      'quarta-feira 6:52:09', 'terça-feira 6:52:09', 'segunda-feira 6:52:09', 'domingo 6:52:09'];
 
-    for(let counter = 0; counter < 7; counter += 1) {
+    for (let counter = 0; counter < 7; counter += 1) {
       const treatedDate = treatment.treatDate(date.getTime(), 'forecast');
       date.setDate(date.getDate() + 1);
 
@@ -71,7 +71,7 @@ describe('Weather Treatment', () => {
   });
 
   it('should treat date', (done) => {
-    const today = new Date(1561309569565/1000);
+    const today = new Date(1561309569565 / 1000);
     today.setHours(0);
     const fakeClock = sinon.useFakeTimers(today.getTime());
 

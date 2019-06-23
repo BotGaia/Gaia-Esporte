@@ -96,16 +96,16 @@ describe('Routes', () => {
     chai.request(app).get('/userNotification')
       .query({ id: 'testIDIDtest' }).end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('Array').that.has.lengthOf(1);
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
         done();
       });
   });
-  
+
   it('should get all sport notifications', (done) => {
     chai.request(app).get('/allNotifications')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('Array').that.is.not.empty;
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
         done();
       });
   });
@@ -133,7 +133,7 @@ describe('Routes', () => {
     chai.request(app).get('/forecast')
       .query({ place: 'rio grande' }).end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('Array').that.is.not.empty;
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
         res.body[0].should.have.property('date');
         done();
       });
@@ -153,7 +153,7 @@ describe('Routes', () => {
     chai.request(app).get('/listLocales')
       .query({ local: 'rio grande' }).end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('Array').that.is.not.empty;
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
         res.body[0].should.have.property('lat');
         done();
       });

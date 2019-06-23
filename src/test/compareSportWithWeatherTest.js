@@ -80,7 +80,7 @@ describe('Compare current and favorable weather conditions', () => {
 
     const sportArray = [leol.getSport(), notLeol.getSport(), notLeolAsWell.getSport()];
     const dividedRecommendations = compareUtil.divideRecommendationArrays(sportArray,
-        fakeWeather);
+      fakeWeather);
 
     dividedRecommendations.should.be.a('Object');
     dividedRecommendations.should.have.property('favorable').that.has.lengthOf(1);
