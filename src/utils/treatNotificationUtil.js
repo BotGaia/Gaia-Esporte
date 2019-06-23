@@ -33,7 +33,6 @@ module.exports = {
     });
 
     notification.setLocal(requestBody.local);
-
     NotificationModel.find({
       telegramID: notification.getTelegramId(),
       days: notification.getDays(),
