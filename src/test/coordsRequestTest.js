@@ -9,7 +9,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('List', () => {
-  it('Should get Latitude', (done) => {
+  it('should get Latitude', (done) => {
     chai.request(app).get('/listLocales?local=brasilia').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Array');
@@ -18,7 +18,7 @@ describe('List', () => {
     });
   }).timeout(5000);
 
-  it('Should get Longitude', (done) => {
+  it('should get Longitude', (done) => {
     chai.request(app).get('/listLocales?local=brasilia').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Array');
@@ -28,8 +28,8 @@ describe('List', () => {
   }).timeout(5000);
 });
 
-describe('Coords', () => {
-  it('Should get Latitude', (done) => {
+describe('Coordinates', () => {
+  it('should get Latitude', (done) => {
     chai.request(app).get('/local?local=parana').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Object');
@@ -38,7 +38,7 @@ describe('Coords', () => {
     });
   }).timeout(5000);
 
-  it('Should get Longitude', (done) => {
+  it('should get Longitude', (done) => {
     chai.request(app).get('/local?local=parana').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Object');

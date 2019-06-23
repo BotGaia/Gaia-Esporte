@@ -5,7 +5,7 @@ const chai = require('chai');
 const hourly = require('../utils/hourlyForecastUtil');
 
 describe('Hourly Forecast', () => {
-  it('Should return 1st item', () => {
+  it('should return 1st item', () => {
     const date = new Date(Date.now());
 
     date.setHours(date.getHours() - 2);
@@ -18,7 +18,7 @@ describe('Hourly Forecast', () => {
       .eql(1);
   });
 
-  it('Should return 3 hours', () => {
+  it('should return 3 hours', () => {
     const date = new Date();
 
     hourly.getHoursAhead(
@@ -29,7 +29,7 @@ describe('Hourly Forecast', () => {
   });
 
 
-  it('Should return invalid 1', () => {
+  it('should return invalid 1', () => {
     const date = new Date();
     date.setHours(date.getHours() - 3);
     date.setFullYear(date.getFullYear() + 1);
@@ -41,7 +41,7 @@ describe('Hourly Forecast', () => {
       .eql('invalid');
   });
 
-  it('Should return invalid 1', () => {
+  it('should return invalid 1', () => {
     const date = new Date();
     date.setHours(date.getHours() - 4);
 
