@@ -3,39 +3,6 @@ const SportSchema = require('../schemas/sportSchema');
 
 const SportModel = mongoose.model('SportModel', SportSchema);
 
-function compare(weather) {
-  return new Promise((resolve) => {
-    this.getAllSports().then((array) => {
-      resolve(this.divideRecommendationArrays(array, weather));
-    });
-  });
-}
-
-function divideRecommendationArrays(array, weather) {
-  let count = 0;
-  const objectOfSports = { favorable: [], reservation: [], alert: [] };
-  for (let i = 0; i < array.length; i += 1) {
-    if (this.compareTemperature(array[i], weather)) {
-      count += 1;
-    }
-    if (this.compareHumidity(array[i], weather)) {
-      count += 1;
-    }
-    if (this.compareWindSpeed(array[i], weather)) {
-      count += 1;
-    }
-    if (count === 3) {
-      objectOfSports.favorable.push(array[i]);
-    } else if (count === 2) {
-      objectOfSports.reservation.push(array[i]);
-    } else if (count === 1) {
-      objectOfSports.alert.push(array[i]);
-    }
-    count = 0;
-  }
-  return objectOfSports;
-}
-
 function getAllSports() {
   return new Promise((resolve) => {
     SportModel.find({ class: 'sport' }).then((array) => {
@@ -45,19 +12,12 @@ function getAllSports() {
   });
 }
 
-function compareWeather(sport, weather) {
-  let recommendationLevel = 0;
-  if (this.compareHumidity(sport, weather)) {
-    recommendationLevel += 1;
-  }
-  if (this.compareTemperature(sport, weather)) {
-    recommendationLevel += 1;
-  }
-  if (this.compareWindSpeed(sport, weather)) {
-    recommendationLevel += 1;
-  }
-
-  return recommendationLevel;
+function compare(weather) {
+  return new Promise((resolve) => {
+    this.getAllSports().then((array) => {
+      resolve(this.divideRecommendationArrays(array, weather));
+    });
+  });
 }
 
 function compareTemperature(sport, weather) {
@@ -89,6 +49,39 @@ function compareWindSpeed(sport, weather) {
     }
   }
   return false;
+}
+
+function compareWeather(sport, weather) {
+  let recommendationLevel = 0;
+  if (compareHumidity(sport, weather)) {
+    recommendationLevel += 1;
+  }
+  if (compareTemperature(sport, weather)) {
+    recommendationLevel += 1;
+  }
+  if (compareWindSpeed(sport, weather)) {
+    recommendationLevel += 1;
+  }
+
+  return recommendationLevel;
+}
+
+function divideRecommendationArrays(array, weather) {
+  let count = 0;
+  const objectOfSports = { favorable: [], reservation: [], alert: [] };
+  for (let i = 0; i < array.length; i += 1) {
+    count = compareWeather(array[i], weather);
+
+    if (count === 3) {
+      objectOfSports.favorable.push(array[i]);
+    } else if (count === 2) {
+      objectOfSports.reservation.push(array[i]);
+    } else if (count === 1) {
+      objectOfSports.alert.push(array[i]);
+    }
+    count = 0;
+  }
+  return objectOfSports;
 }
 
 module.exports = {

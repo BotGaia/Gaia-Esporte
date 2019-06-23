@@ -51,29 +51,21 @@ router.get('/climateForecast', (req, res) => {
 });
 
 router.post('/sportForecast', (req, res) => {
-  const resultArray = [];
-  let i = 0;
-  req.body.locals.forEach((local) => {
-    requestCoords.getCoords(local).then((coordsJson) => {
-      requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
-        if (forecastJson.cod === '200') {
-          const weatherArray = [];
+  const { local } = req.body;
 
-          forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
+  requestCoords.getCoords(local).then((coordsJson) => {
+    requestWeather.getForecast(coordsJson).then(async (forecastJson) => {
+      if (forecastJson.cod === '200') {
+        const weatherArray = [];
 
-          const resultItem = await sportForecastRecommendation
-            .getForecastRecommendation(weatherArray, req.body);
+        forecastJson.list.map(json => weatherArray.push(new Weather(json, 'forecast')));
 
-          resultArray.push(resultItem);
-          i += 1;
-
-          if (i === req.body.locals.length) {
-            res.json(resultArray);
-          }
-        } else {
-          res.json(forecastJson.list);
-        }
-      });
+        const result = await sportForecastRecommendation
+          .getForecastRecommendation(weatherArray, req.body);
+        res.json(result);
+      } else {
+        res.json(forecastJson.list);
+      }
     });
   });
 });
@@ -175,7 +167,7 @@ router.get('/deleteNotification', (req, res) => {
 
 router.post('/createNotification', (req, res) => {
   treatNotification.saveNotification(req.body).then((notification) => {
-    res.send(notification.notification);
+    res.send(notification);
   });
 });
 

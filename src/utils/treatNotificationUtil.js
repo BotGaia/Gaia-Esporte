@@ -27,14 +27,12 @@ module.exports = {
     notification.setSport(requestBody.sport);
     notification.setDate(date.getTime());
 
+
     requestBody.days.forEach((element) => {
       notification.appendDay(element);
     });
 
-    requestBody.locals.forEach((element) => {
-      notification.appendLocal(element);
-    });
-
+    notification.setLocal(requestBody.local);
     NotificationModel.find({
       telegramID: notification.getTelegramId(),
       days: notification.getDays(),
@@ -43,10 +41,10 @@ module.exports = {
       hour: notification.getHour(),
       minutes: notification.getMinutes(),
       sport: notification.getSport(),
-      locals: notification.getLocal(),
+      local: notification.getLocal(),
     }).then(() => {
       notification.saveNotification().then(() => {
-        scheduler.scheduleOne(notification);
+        scheduler.scheduleOne(notification.notification);
         resolve(notification);
       });
     });
