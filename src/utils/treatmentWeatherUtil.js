@@ -38,7 +38,7 @@ module.exports = {
 
   treatWind: (wind) => {
     const ang = parseFloat(wind);
-    if (ang >= 337.5 && ang < 22.5) {
+    if ((ang < 22.5 && ang >= 0) || (ang >= 337.5 && ang <= 360)) {
       return ('leste');
     }
     if (ang >= 22.5 && ang < 67.5) {

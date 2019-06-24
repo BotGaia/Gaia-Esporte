@@ -8,6 +8,7 @@ function getAllSports() {
     SportModel.find({ class: 'sport' }).then((array) => {
       resolve(array);
     }).catch(() => {
+      resolve([]);
     });
   });
 }

@@ -8,7 +8,7 @@ const app = require('../index');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('GET FORECAST', () => {
+describe('Forecast', () => {
   it('should get a list of weather objects', (done) => {
     chai.request(app).get('/forecast?place=brasilia').end((err, res) => {
       res.should.have.status(200);

@@ -10,16 +10,14 @@ const mongooseConnection = require('../db/sportMongooseConnectionDb');
 
 const should = chai.should();
 
-describe('Validate database', () => {
+describe('Sport and Interval Models', () => {
   it('should have sports saved', (done) => {
     new Sport('sportTest2').findMe().then((isFound) => {
       isFound.should.be.equal(true);
       done();
     });
   });
-});
 
-describe('Save in database', () => {
   it('should save sports', (done) => {
     sport = new Sport('sportTest2');
     sport.saveSport().then(() => {
@@ -29,10 +27,8 @@ describe('Save in database', () => {
       });
     });
   });
-});
 
-describe('Create Sport with temperature condition', () => {
-  it('Should create a sport named sport with temperature of length 1', () => {
+  it('should create a sport named sport with temperature of length 1', () => {
     mongooseConnection.connect().then(() => {
       const sport = new Sport('sport');
       const interval = new Interval('1', '1');
@@ -40,10 +36,8 @@ describe('Create Sport with temperature condition', () => {
       sport.getSport().temperature.length.should.be.equal(1);
     });
   });
-});
 
-describe('Create Sport with humidity condition', () => {
-  it('Should create a sport named sport with humidity of length 1', () => {
+  it('should create a sport named sport with humidity of length 1', () => {
     mongooseConnection.connect().then(() => {
       const sport = new Sport('sport');
       const interval = new Interval('1', '1');
@@ -51,10 +45,8 @@ describe('Create Sport with humidity condition', () => {
       sport.getSport().humidity.length.should.be.equal(1);
     });
   });
-});
 
-describe('Create Sport with windy speed condition', () => {
-  it('Should create a sport named sport with wind speed of length 1', () => {
+  it('should create a sport named sport with wind speed of length 1', () => {
     mongooseConnection.connect().then(() => {
       const sport = new Sport('sport');
       const interval = new Interval('1', '1');
@@ -63,18 +55,17 @@ describe('Create Sport with windy speed condition', () => {
     });
   });
 
-  describe('Sport Forecast Recommendation', () => {
-    it('should have sport forecast recommendation', () => {
-      const fakeWeather = { temperature: '1500', humidity: '2.0', windySpeed: '2.0' };
-      const fakeBody = { date: '2019-05-31T01:27:33.590Z', sport: 'sportTest' };
-      const recommendation = sportForecast.getForecastRecommendation(fakeWeather, fakeBody);
-      recommendation.should.not.be.equal('Array');
-    });
+  it('should have sport forecast recommendation', () => {
+    const fakeWeather = { temperature: '1500', humidity: '2.0', windySpeed: '2.0' };
+    const fakeBody = { date: '2019-05-31T01:27:33.590Z', sport: 'sportTest' };
+    const recommendation = sportForecast.getForecastRecommendation(fakeWeather, fakeBody);
+    recommendation.should.not.be.equal('Array');
   });
-  describe('All Sports', () => {
-    it('should have all sports', () => {
-      compare.getAllSports();
-      compare.should.not.be.equal('Array');
+
+  it('should have all sports', (done) => {
+    compare.getAllSports().then((comparison) => {
+      comparison.should.be.a('Array');
+      done();
     });
   });
 });
