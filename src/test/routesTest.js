@@ -9,7 +9,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Routes', () => {
-  it('Should get climate forecast', (done) => {
+  it('should get climate forecast', (done) => {
     const today = new Date();
     const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
     let day = tomorrow.getDate().toString();
@@ -28,7 +28,7 @@ describe('Routes', () => {
     });
   }).timeout(5000);
 
-  it('Should get all sports', (done) => {
+  it('should get all sports', (done) => {
     chai.request(app).get('/allSports').end((err, res) => {
       res.should.have.status(200);
       res.body.should.be.a('Array');
@@ -45,7 +45,7 @@ describe('Routes', () => {
     });
   }).timeout(5000);
 
-  it('Should create notification', (done) => {
+  it('should create notification', (done) => {
     const notification = {
       telegramId: 'testIDIDtest',
       days: [0, 3, 1],
@@ -63,7 +63,7 @@ describe('Routes', () => {
     });
   }).timeout(5000);
 
-  it('Should create sport notification', (done) => {
+  it('should create a sport notification', (done) => {
     const today = new Date();
     let newDay = (today.getDate() + 1).toString();
     let newMonth = (today.getMonth() + 1).toString();
@@ -91,4 +91,107 @@ describe('Routes', () => {
       done();
     });
   }).timeout(5000);
+
+  it('should get a sport notification', (done) => {
+    chai.request(app).get('/userNotification')
+      .query({ id: 'testIDIDtest' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
+        done();
+      });
+  });
+
+  it('should get all sport notifications', (done) => {
+    chai.request(app).get('/allNotifications')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
+        done();
+      });
+  });
+
+  it('should delete a sport notification', (done) => {
+    chai.request(app).get('/deleteNotification')
+      .query({ id: 'testIDIDtest', number: '0' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('String').that.is.equal('Notificação excluída.');
+        done();
+      });
+  });
+
+  it('should get sports for a location', (done) => {
+    chai.request(app).get('/sports')
+      .query({ place: 'rio grande' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Object');
+        res.body.should.have.property('favorable');
+        done();
+      });
+  });
+
+  it('should get a location forecast', (done) => {
+    chai.request(app).get('/forecast')
+      .query({ place: 'rio grande' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
+        res.body[0].should.have.property('date');
+        done();
+      });
+  });
+
+  it('should get a location climate', (done) => {
+    chai.request(app).get('/climate')
+      .query({ place: 'rio grande' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Object');
+        res.body.should.have.property('date');
+        done();
+      });
+  });
+
+  it('should get sports for a location', (done) => {
+    chai.request(app).get('/listLocales')
+      .query({ local: 'rio grande' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Array').that.has.lengthOf.at.least(1);
+        res.body[0].should.have.property('lat');
+        done();
+      });
+  });
+
+  it('should not get sport forecast', (done) => {
+    chai.request(app).post('/sportForecast')
+      .send({
+        days: [
+          1,
+          5,
+        ],
+        local: 'praça do relógio',
+        _id: '5d0d469947458b001d8dc999',
+        class: 'notification',
+        telegramId: '12455',
+        sport: 'kitesurf',
+        hour: 23,
+        minutes: 12,
+        hoursBefore: 2,
+        minutesBefore: 11,
+        date: '2019-06-21T18:05:29.247Z',
+        __v: 0,
+      }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Object');
+        res.body.should.have.property('sportResult').eql('not');
+        done();
+      });
+  });
+
+  it('should get a location coordinates', (done) => {
+    chai.request(app).get('/local')
+      .query({ local: 'rio grande' }).end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('Object');
+        res.body.should.have.property('lat');
+        done();
+      });
+  });
 });

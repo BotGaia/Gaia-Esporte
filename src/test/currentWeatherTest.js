@@ -11,7 +11,7 @@ const requestCoords = require('../requests/coordsRequest');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('GET WEATHER', () => {
+describe('Current Weather', () => {
   it('should get a weather object', (done) => {
     chai.request(app).get('/climate?place=brasilia').end((err, res) => {
       res.should.have.status(200);

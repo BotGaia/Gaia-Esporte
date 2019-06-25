@@ -4,14 +4,14 @@
 const chai = require('chai');
 const Notification = require('../models/NotificationModel');
 
-describe('Notification test', () => {
-  it('new Notification()', () => {
+describe('Notification Model', () => {
+  it('should create a new notification', () => {
     const notification = new Notification('testId60');
     notification.setTelegramId('testId61');
     notification.getTelegramId().should.eql('testId61');
   });
 
-  it('appends', () => {
+  it('should append a day', () => {
     const notification = new Notification('testId689');
     notification.appendDay('test');
     notification.setSport('test');

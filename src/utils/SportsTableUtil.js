@@ -44,12 +44,6 @@ const Sports = [
     windSpeedInterval: [new Interval('25.72', '10.8')],
   },
   {
-    name: 'sportTest2',
-    temperatureInterval: [new Interval('3000', '3000')],
-    humidityInterval: [new Interval('3000', '3000')],
-    windSpeedInterval: [new Interval('3000', '3000')],
-  },
-  {
     name: 'Remo',
     temperatureInterval: [new Interval('19', '15'), new Interval('35', '30')],
     humidityInterval: [new Interval('70', '21')],
@@ -91,7 +85,12 @@ const Sports = [
     humidityInterval: [new Interval('70', '21')],
     windSpeedInterval: [new Interval('10.28', '0'), new Interval('20.57', '15.94')],
   },
-
+  {
+    name: 'sportTest2',
+    temperatureInterval: [new Interval('3000', '3000')],
+    humidityInterval: [new Interval('3000', '3000')],
+    windSpeedInterval: [new Interval('3000', '3000')],
+  },
 ];
 
 module.exports = Sports;

@@ -2,26 +2,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const chai = require('chai');
-const Scheduler = require('../utils/schedulerUtil');
-const TreatTime = require('../utils/treatTimeUtil');
+const scheduler = require('../utils/schedulerUtil');
+const treatTime = require('../utils/treatTimeUtil');
 
 const should = chai.should();
 
-describe('Scheduler test', () => {
-  it('getDateTime()', () => {
-    const weekDay = TreatTime.getDateTime();
+describe('Scheduler', () => {
+  it('should get date time', () => {
+    const weekDay = treatTime.getDateTime();
     weekDay.should.be.within(0, 6);
   });
 
-  it('getDailyNotifications()', (done) => {
-    Scheduler.getDailyNotifications(15).then((notificationArray) => {
+  it('should get daily notifications', (done) => {
+    scheduler.getDailyNotifications(15).then((notificationArray) => {
       notificationArray.length.should.be.eql(0);
       done();
     });
   });
 
-  it('makeSchedule()', (done) => {
-    Scheduler.makeSchedule({ time: '' }).then((nothing) => {
+  it('should make schedule', (done) => {
+    scheduler.makeSchedule({ time: '' }).then((nothing) => {
       none = nothing;
       if (none) {
         none = 1;
@@ -33,4 +33,14 @@ describe('Scheduler test', () => {
       done();
     });
   });
+
+  it('should schedule a notification', (done) => {
+    scheduler.notificationSchedule();
+    done();
+  });
+
+  it('should schedule daily', (done) => {
+    scheduler.dailySchedule();
+    done();
+  }).timeout(5000);
 });
